@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Usage: scripts/check-pdf.sh build/tom-dobson-cv.pdf
+# Usage: scripts/check-pdf.sh build/Tom-Dobson-CV.pdf
 set -euo pipefail
 
 pdf=${1:?usage: $0 <pdf>}

@@ -1,4 +1,4 @@
-PDF := build/tom-dobson-cv.pdf
+PDF := build/Tom-Dobson-CV.pdf
 PRETTIER := npx --yes prettier@3.9.6
 TAG ?= v$(shell date +%Y.%m.%d)
 

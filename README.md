@@ -8,7 +8,7 @@ dobs.tx@gmail.com · [linkedin.com/in/dobsontom](https://linkedin.com/in/dobsont
 
 ![Latest release](https://img.shields.io/github/v/release/dobsontom/cv?label=latest%20release&logo=github)
 
-**[Download the PDF](https://github.com/dobsontom/cv/releases/latest/download/tom-dobson-cv.pdf)**
+**[Download the PDF](https://github.com/dobsontom/cv/releases/latest/download/Tom-Dobson-CV.pdf)**
 
 <img src=".github/preview-1.svg" alt="Page one of the CV" width="48%">
 <img src=".github/preview-2.svg" alt="Page two of the CV" width="48%">
@@ -24,14 +24,14 @@ sudo apt install texlive-latex-base texlive-latex-extra texlive-fonts-extra late
 ```
 
 ```sh
-make          # compile to build/tom-dobson-cv.pdf
+make          # compile to build/Tom-Dobson-CV.pdf
 make check    # compile, then check page count, metadata, text extraction, and overfull lines
 make lint     # Prettier and ShellCheck
 make format   # fix what lint reports
 ```
 
 The [AltaCV](https://github.com/liantze/AltaCV) class under `vendor/altacv/` is used as published.
-Every change to the look lives in `cvstyle.sty`, and the words in `tom-dobson-cv.tex`.
+Every change to the look lives in `cvstyle.sty`, and the words in `Tom-Dobson-CV.tex`.
 
 ## Releasing
 

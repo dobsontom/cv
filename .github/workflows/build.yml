@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 env:
-  PDF_NAME: tom-dobson-cv
+  PDF_NAME: Tom-Dobson-CV
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

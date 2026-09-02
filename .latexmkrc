@@ -5,7 +5,7 @@ $ENV{'SOURCE_DATE_EPOCH'} //= $commit_time || time;
 
 $pdf_mode = 1;
 $out_dir = 'build';
-@default_files = ('tom-dobson-cv.tex');
+@default_files = ('Tom-Dobson-CV.tex');
 $pdflatex = 'pdflatex -interaction=nonstopmode -halt-on-error -file-line-error -synctex=1 %O %S';
 ensure_path('TEXINPUTS', './vendor/altacv//');
 $warnings_as_errors = 1;
