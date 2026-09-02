@@ -3,14 +3,25 @@
 
 \RequirePackage[british]{babel}
 \RequirePackage[default]{sourcesanspro}
-\RequirePackage{microtype}
+\RequirePackage[tracking=true]{microtype}
 \RequirePackage{needspace}
+\SetTracking{encoding=*, shape=n}{40}
 
-\geometry{a4paper, left=2cm, right=2cm, top=1.5cm, bottom=1.5cm}
+\geometry{a4paper, left=2.2cm, right=2.2cm, top=1.6cm, bottom=1.6cm}
 % Boxes overfull by a tenth of a point are invisible in print but would fail the log check.
 \setlength{\hfuzz}{1pt}
 % pdftocairo copies only the ink, so without this the SVG preview is transparent.
 \pagecolor{white}
+
+% The class already applies \RaggedRight, but 2em of slack is too little to set this measure without
+% hyphens, so Terraform was splitting across lines. Banning them needs the wider slack, or short
+% lines become underfull boxes and fail the build.
+\setlength{\RaggedRightRightskip}{0pt plus 5em}
+\linespread{1.05}
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\widowpenalty=10000
+\clubpenalty=10000
 
 \definecolor{SlateGrey}{HTML}{2E2E2E}
 \definecolor{LightGrey}{HTML}{666666}
@@ -20,36 +31,90 @@
 \colorlet{headingrule}{LightGrey}
 \colorlet{accent}{SlateGrey}
 \colorlet{emphasis}{black}
-\colorlet{body}{black}
+\colorlet{body}{SlateGrey}
 
 % Only \cvmetric is bold, so a skim lands on the figures.
-\renewcommand{\namefont}{\Huge}
-\renewcommand{\taglinefont}{\large}
+\renewcommand{\namefont}{\Huge\lsstyle}
+\renewcommand{\taglinefont}{\normalsize}
+% Wrapping here rather than in \taglinefont, which is a font switch and cannot take the text.
+\renewcommand{\tagline}[1]{\def\@tagline{\textls[120]{\MakeUppercase{#1}}}}
 \renewcommand{\personalinfofont}{\footnotesize}
 \renewcommand{\cvsectionfont}{\Large}
+\renewcommand{\cvItemMarker}{{\small\color{headingrule}\textbullet}}
+\renewcommand{\cvLocationMarker}{\faMapMarker*}
+
+% Set once by \cvsection and cleared by the first \cvrole under it, so a role opening a section is
+% not pushed away from its own heading by the gap that separates one role from the next.
+\newif\if@cvfirstinsection
+
+% Set from \cvsection's optional argument, so a section of two-line entries can opt out of rules
+% that would weigh more than the entries they separate.
+\newif\if@cvdividers
+
+\newcounter{cvsection}
 
 % The class hardcodes a 2pt rule and a margin-note hook for its sidebar layout.
 \RenewDocumentCommand{\cvsection}{O{} m}{%
-  \par\nointerlineskip\bigskip
-  {\color{heading}\cvsectionfont\MakeUppercase{#2}}\\[-1ex]
-  {\color{headingrule}\rule{\linewidth}{0.4pt}\par}\medskip
+  \par\addvspace{1.1\baselineskip}%
+  \needspace{5\baselineskip}%
+  \stepcounter{cvsection}%
+  \pdfbookmark[1]{#2}{cvsection.\thecvsection}%
+  {\color{heading}\cvsectionfont\textls[80]{\MakeUppercase{#2}}}\par\nobreak
+  \vspace{-0.6ex}%
+  {\color{headingrule}\rule{\linewidth}{0.4pt}}\par\nobreak
+  \vspace{0.4\baselineskip}%
+  \@cvfirstinsectiontrue
+  \ifstrequal{#1}{nodivider}{\@cvdividersfalse}{\@cvdividerstrue}%
 }
 
 \NewInfoField{source}{\faCodeBranch}[https://github.com/]
 
-\NewDocumentCommand{\cvmetric}{m}{\textbf{#1}}
+% The class forces \pagestyle{empty} from a begindocument/before hook, so a sheet parted from the
+% others carries nothing identifying. \AtEndDocument runs before the final \clearpage, which puts
+% this label on the last page and saves loading lastpage for one reference.
+\AtEndDocument{\label{cv@lastpage}}
+\newcommand{\ps@cvfooter}{%
+  \renewcommand{\@oddhead}{}%
+  \renewcommand{\@evenhead}{}%
+  \renewcommand{\@oddfoot}{%
+    \footnotesize\color{headingrule}\@name\hfill\thepage\ of \pageref{cv@lastpage}%
+  }%
+  \let\@evenfoot\@oddfoot
+}
+% Page one names him in the header already, and the class's hook has to have run before this.
+\AtBeginDocument{\pagestyle{cvfooter}\thispagestyle{empty}}
+
+\NewDocumentCommand{\cvmetric}{m}{{\color{emphasis}\textbf{#1}}}
+
+% Drawn only between roles, never above the first in a section or below the last, which the
+% \if@cvfirstinsection branch in \cvrole gets for free.
+% \nointerlineskip drops the baselineskip glue before the rule, so the two \vspace values around it
+% are the whole gap and can be matched by eye.
+\newcommand{\cvdivider}{%
+  \nointerlineskip
+  \noindent{\color{LightGrey!25}\rule{\linewidth}{0.4pt}}\par
+}
 
 % #1 title, #2 employer, #3 dates
 \NewDocumentCommand{\cvrole}{m m m}{%
-  \par\medskip
-  \needspace{5\baselineskip}
-  {\large\color{emphasis}#1}\hfill{\small #3}\par
-  {\color{accent}#2}\par
-  \smallskip
+  \par
+  \if@cvfirstinsection
+    \@cvfirstinsectionfalse
+  \else
+    \if@cvdividers
+      \addvspace{0.8\baselineskip}\cvdivider\vspace{0.8\baselineskip}%
+    \else
+      \addvspace{1.1\baselineskip}%
+    \fi
+  \fi
+  \needspace{5\baselineskip}%
+  {\large\color{emphasis}#1}\hfill{\small\color{headingrule}#3}\par\nobreak
+  {\color{accent}#2}\par\nobreak
+  \vspace{0.35\baselineskip}%
 }
 
 \newlength{\cvskilllabelwidth}
-\setlength{\cvskilllabelwidth}{7em}
+\setlength{\cvskilllabelwidth}{8em}
 % #1 label, #2 comma-separated items
 \NewDocumentCommand{\cvskillline}{m m}{%
   \noindent
