@@ -29,11 +29,10 @@ infrastructure is part of the job.
 
 \cvrole{Data Engineer}{tails.com}{Mar 2026 -- present}
 \begin{itemize}
-  \item Cut Snowflake spend \cvmetric{46\%} in two years, around \$100k a year and the lowest month
-        on record, by removing unused and over-scheduled compute at source and sizing each
-        warehouse, Gen2 included, on measured workload
+  \item Cut Snowflake spend \cvmetric{46\%}, saving around \$100k per year, by removing unused and
+        over-scheduled compute and sizing each warehouse, Gen2 included, on measured workload
   \item Migrated every ingestion source to self-hosted Airbyte on EKS and retired every paid
-        ingestion platform, cutting ETL licence spend \cvmetric{94\%}, around \$60k a year
+        ingestion platform, cutting ETL licence spend \cvmetric{94\%}, around \$60k per year
   \item Eliminated shared static credentials on the production databases, replacing them with
         per-person IAM authentication, 15-minute tokens, and role-scoped grants, so every
         production query traces to an engineer. Live on the core production databases, over
@@ -41,12 +40,12 @@ infrastructure is part of the job.
   \item Designed and built Snowflake governance as code in Terraform, with access managed from
         Google Groups through to Snowflake roles, every service account on key-pair authentication,
         and grants to PUBLIC cut \cvmetric{97\%}
-  \item Profiled the production MySQL workload and fixed an N+1 that was \cvmetric{8\%} of writer
-        query volume by memoising a per-pet lookup, and an unindexed join scanning around 40,000
-        rows a second
+  \item Profiled the production MySQL workload and removed N+1 queries that comprised
+        \cvmetric{8\%} of database query volume by caching per-item lookups, and an unindexed join
+        scanning around 40,000 rows a second
   \item Built the platform's new ingestion and reverse-ETL pipelines in Airflow, landing survey and
         support-ticket sources in Snowflake and pushing customer segments and orders back into CX
-        and marketing tools, and delivered the sync for a new product catalogue API, validated by
+        and marketing tools. Delivered the sync for a new product catalogue API, validated by
         running it in parallel against a clone of production
   \item Protected the analytics estate through a platform migration by auditing every event path
         from the core application into Snowflake, finding the dependency that had no replacement,
