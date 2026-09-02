@@ -16,79 +16,85 @@
 
 \cvsection{Summary}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste
-natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
-ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
-ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
-dolores eos qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum
-quia dolor sit amet, consectetur, adipisci velit.
+Data engineer owning tails.com's data platform end to end: from the Aurora MySQL and Postgres
+application databases to a Snowflake, dbt, Airflow, and Airbyte estate of around 290 billion rows
+on AWS and Kubernetes, with the Terraform that provisions it and access managed from group
+membership down to per-person database identities. In two years, cut Snowflake spend 46\% and ETL
+licence spend 94\% whilst the estate grew, and retired every paid ingestion platform. Inside the
+application, profiled the core production database and cut its query load and CPU by around a third
+across 2026 through N+1 fixes and indexing. Looking for a senior data engineering role where the
+infrastructure is part of the job.
 
 \cvsection{Experience}
 
 \cvrole{Data Engineer}{tails.com}{Mar 2026 -- present}
 \begin{itemize}
-  \item Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-    laboris nisi ut aliquip ex ea commodo consequat
-  \item Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-    nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-  \item Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-    laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-    architecto beatae vitae dicta sunt explicabo
-  \item Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt, neque porro quisquam
-  \item Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam,
-    nisi ut aliquid ex ea commodi consequatur. Quis autem vel eum iure reprehenderit
-  \item At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-    voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-    cupiditate non provident, similique sunt in culpa
-  \item Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet
-    ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur
-  \item Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id
-    quod maxime placeat facere possimus, omnis voluptas assumenda est
+  \item Cut Snowflake spend \cvmetric{46\%} in two years, around \$100k a year and the lowest month
+        on record, by removing unused and over-scheduled compute at source and sizing each
+        warehouse, Gen2 included, on measured workload
+  \item Migrated every ingestion source to self-hosted Airbyte on EKS and retired every paid
+        ingestion platform, cutting ETL licence spend \cvmetric{94\%}, around \$60k a year
+  \item Eliminated shared static credentials on the production databases, replacing them with
+        per-person IAM authentication, 15-minute tokens, and role-scoped grants, so every
+        production query traces to an engineer. Live on the core production databases, over
+        \cvmetric{4 TB} between them
+  \item Designed and built Snowflake governance as code in Terraform, with access managed from
+        Google Groups through to Snowflake roles, every service account on key-pair authentication,
+        and grants to PUBLIC cut \cvmetric{97\%}
+  \item Profiled the production MySQL workload and fixed an N+1 that was \cvmetric{8\%} of writer
+        query volume by memoising a per-pet lookup, and an unindexed join scanning around 40,000
+        rows a second
+  \item Built the platform's new ingestion and reverse-ETL pipelines in Airflow, landing survey and
+        support-ticket sources in Snowflake and pushing customer segments and orders back into CX
+        and marketing tools, and delivered the sync for a new product catalogue API, validated by
+        running it in parallel against a clone of production
+  \item Protected the analytics estate through a platform migration by auditing every event path
+        from the core application into Snowflake, finding the dependency that had no replacement,
+        and writing the reference backend engineering used to design the Kafka cart-event topic
+        that replaces it
+  \item Gave engineers secure AI-agent access to dbt and Snowflake through an MCP server on a
+        dedicated identity that can build in each developer's own database but never read unmasked
+        PII or write to production
 \end{itemize}
 
 \cvrole{Analytics Engineer}{tails.com}{Oct 2024 -- Mar 2026}
 \begin{itemize}
   \item Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
   \item Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-    nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-    deserunt mollit anim id est laborum
+        nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+        deserunt mollit anim id est laborum
   \item Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-    laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis
+        laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis
   \item Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt, neque porro quisquam
-    est, qui dolorem ipsum quia dolor sit amet
+        consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt, neque porro quisquam
+        est, qui dolorem ipsum quia dolor sit amet
   \item Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam,
-    nisi ut aliquid ex ea commodi consequatur. Quis autem vel eum iure reprehenderit qui in ea
+        nisi ut aliquid ex ea commodi consequatur. Quis autem vel eum iure reprehenderit qui in ea
   \item At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-    voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint
+        voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint
   \item Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet
-    ut et voluptates repudiandae sint et molestiae non recusandae
+        ut et voluptates repudiandae sint et molestiae non recusandae
 \end{itemize}
 
 \cvrole{BI Consultant, contract via The Information Lab}{Viasat}{Jan 2024 -- Oct 2024}
 \begin{itemize}
   \item Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+        ullamco
   \item Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-    nulla pariatur. Excepteur sint occaecat cupidatat non proident
+        nulla pariatur. Excepteur sint occaecat cupidatat non proident
 \end{itemize}
 
 \cvrole{Analytics Consultant}{The Information Lab}{Apr 2022 -- Aug 2024}
 \begin{itemize}
   \item Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-    laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
+        laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+        architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
   \item Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam,
-    nisi ut aliquid ex ea commodi consequatur
+        nisi ut aliquid ex ea commodi consequatur
   \item At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-    voluptatum deleniti atque corrupti quos dolores et quas molestias
+        voluptatum deleniti atque corrupti quos dolores et quas molestias
 \end{itemize}
 
 \cvsection{Skills}
