@@ -20,7 +20,8 @@ format:
 	$(PRETTIER) --write .
 
 preview: pdf
-	pdftocairo -svg -f 1 -l 1 $(PDF) .github/preview.svg
+	pdftocairo -svg -f 1 -l 1 $(PDF) .github/preview-1.svg
+	pdftocairo -svg -f 2 -l 2 $(PDF) .github/preview-2.svg
 
 clean:
 	latexmk -C
