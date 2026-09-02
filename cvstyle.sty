@@ -1,0 +1,59 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cvstyle}[2026/09/02 v1.0 Layout, colours, and content macros over AltaCV]
+
+\RequirePackage[british]{babel}
+\RequirePackage[default]{sourcesanspro}
+\RequirePackage{microtype}
+\RequirePackage{needspace}
+
+\geometry{a4paper, left=2cm, right=2cm, top=1.5cm, bottom=1.5cm}
+% Boxes overfull by a tenth of a point are invisible in print but would fail the log check.
+\setlength{\hfuzz}{1pt}
+
+\definecolor{SlateGrey}{HTML}{2E2E2E}
+\definecolor{LightGrey}{HTML}{666666}
+\colorlet{name}{black}
+\colorlet{tagline}{SlateGrey}
+\colorlet{heading}{black}
+\colorlet{headingrule}{LightGrey}
+\colorlet{accent}{SlateGrey}
+\colorlet{emphasis}{black}
+\colorlet{body}{black}
+
+% Only \cvmetric is bold, so a skim lands on the figures.
+\renewcommand{\namefont}{\Huge}
+\renewcommand{\taglinefont}{\large}
+\renewcommand{\personalinfofont}{\footnotesize}
+\renewcommand{\cvsectionfont}{\Large}
+
+% The class hardcodes a 2pt rule and a margin-note hook for its sidebar layout.
+\RenewDocumentCommand{\cvsection}{O{} m}{%
+  \par\nointerlineskip\bigskip
+  {\color{heading}\cvsectionfont\MakeUppercase{#2}}\\[-1ex]
+  {\color{headingrule}\rule{\linewidth}{0.4pt}\par}\medskip
+}
+
+\NewInfoField{source}{\faCodeBranch}[https://github.com/]
+
+\NewDocumentCommand{\cvmetric}{m}{\textbf{#1}}
+
+% #1 title, #2 employer, #3 dates
+\NewDocumentCommand{\cvrole}{m m m}{%
+  \par\medskip
+  \needspace{5\baselineskip}
+  {\large\color{emphasis}#1}\hfill{\small #3}\par
+  {\color{accent}#2}\par
+  \smallskip
+}
+
+\newlength{\cvskilllabelwidth}
+\setlength{\cvskilllabelwidth}{7em}
+% #1 label, #2 comma-separated items
+\NewDocumentCommand{\cvskillline}{m m}{%
+  \noindent
+  \makebox[\cvskilllabelwidth][l]{\color{emphasis}#1}%
+  \parbox[t]{\dimexpr\linewidth-\cvskilllabelwidth\relax}{\raggedright\hyphenpenalty=10000 #2}%
+  \par\smallskip
+}
+
+\endinput
