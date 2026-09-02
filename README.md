@@ -4,7 +4,7 @@
 
 Tom Dobson's CV, written in LaTeX and built by GitHub Actions
 
-[linkedin.com/in/dobsontom](https://linkedin.com/in/dobsontom) · dobs.tx@gmail.com
+dobs.tx@gmail.com · [linkedin.com/in/dobsontom](https://linkedin.com/in/dobsontom)
 
 ![Latest release](https://img.shields.io/github/v/release/dobsontom/cv?label=latest%20release&logo=github)
 
