@@ -1,0 +1,13 @@
+defaultIndent: "  "
+
+modifyLineBreaks:
+  textWrapOptions:
+    columns: 100
+    when: after
+    removeBlockLineBreaks: 1
+    blocksFollow:
+      other: \\\]|\\item(?:\h|\[)
+    blocksBeginWith:
+      A-Z: 1
+      a-z: 1
+    huge: overflow
