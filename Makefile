@@ -13,11 +13,11 @@ check: pdf
 	scripts/check-pdf.sh $(PDF)
 
 lint:
-	$(PRETTIER) --check . '!vendor'
+	$(PRETTIER) --check .
 	shellcheck scripts/*.sh
 
 format:
-	$(PRETTIER) --write . '!vendor'
+	$(PRETTIER) --write .
 
 preview: pdf
 	pdftoppm -png -gray -r 96 -f 1 -l 1 -singlefile $(PDF) .github/preview
