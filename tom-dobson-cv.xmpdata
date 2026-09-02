@@ -2,4 +2,27 @@
 \Author{Tom Dobson}
 \Language{en-GB}
 \Subject{CV of Tom Dobson, data engineer}
-\Keywords{Tom Dobson\sep CV\sep Curriculum Vitae\sep Data Engineer\sep Snowflake\sep dbt\sep Airflow\sep Airbyte\sep Kubernetes\sep OpenTofu\sep Terraform\sep AWS\sep MySQL\sep Python\sep SQL}
+\Keywords{%
+  Tom Dobson\sep%
+  CV\sep%
+  Curriculum Vitae\sep%
+  Resume\sep%
+  Data Engineer\sep%
+  Airbyte\sep%
+  Airflow\sep%
+  Aurora\sep%
+  AWS\sep%
+  dbt\sep%
+  Docker\sep%
+  EKS\sep%
+  GitHub Actions\sep%
+  Helm\sep%
+  Kubernetes\sep%
+  MySQL\sep%
+  OpenTofu\sep%
+  PostgreSQL\sep%
+  Python\sep%
+  Snowflake\sep%
+  SQL\sep%
+  Terraform%
+}
