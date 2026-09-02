@@ -37,9 +37,12 @@ Every change to the look lives in `cvstyle.sty`, and the words in `tom-dobson-cv
 
 ```sh
 make preview               # refresh both .github/preview-*.svg, then commit them
-git tag v2026.09.02        # vYYYY.MM.DD
-git push --follow-tags
+make release               # tag today's date and push
 ```
+
+`make release` checks the PDF, refreshes the previews, and refuses to tag whilst anything is
+uncommitted. It tags `vYYYY.MM.DD` from today's date, so pass `TAG=` to override that or to cut a
+second release on a day that already has one.
 
 The [workflow](.github/workflows/build.yml) builds and checks the PDF, then creates the release with
 it attached. The download link above always resolves to the newest one.
