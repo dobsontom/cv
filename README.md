@@ -1,22 +1,49 @@
-# About This CV
-This CV is version-controlled, written in LaTeX, and based on the [AltaCV](https://github.com/liantze/AltaCV) class by LianTze Lim.
+<div align="center">
 
-## How to Read
-To read this CV, you can download the compiled PDF from the following [link](tom-dobson-cv.pdf).
+# `cv`
 
-## How to Compile
-### LaTeX Distribution
-Make sure you have the correct LaTeX distribution installed for your operating system:
-* **Windows**:	[MiKTex](https://miktex.org/download) 
-* **Linux**:	[Tex Live](https://www.tug.org/texlive/quickinstall.html)
+Tom Dobson's CV, written in LaTeX and built by GitHub Actions
 
-### Compilation
-1. Clone or [download](https://github.com/tomdobs/tom-dobson-cv/archive/refs/heads/main.zip) this GitHub repository.
-2. Use the terminal to navigate to the repository directory.
-3. Run the following commands to compile with pdfLaTeX, biber, and again with pdfLaTeX.
+[linkedin.com/in/dobsontom](https://linkedin.com/in/dobsontom) · dobs.tx@gmail.com
 
-```bash
-pdflatex tom-dobson-cv.tex
-biber tom-dobson-cv
-pdflatex tom-dobson-cv.tex
+![Latest release](https://img.shields.io/github/v/release/dobsontom/cv?label=latest%20release&logo=github)
+
+**[Download the PDF](https://github.com/dobsontom/cv/releases/latest/download/tom-dobson-cv.pdf)**
+
+![Page one of the CV](.github/preview.png)
+
+</div>
+
+## Building
+
+Needs TeX Live 2023, `latexmk`, and `poppler-utils`. On Ubuntu 24.04:
+
+```sh
+sudo apt install texlive-latex-base texlive-latex-extra texlive-fonts-extra latexmk poppler-utils
 ```
+
+```sh
+make          # compile to build/tom-dobson-cv.pdf
+make check    # compile, then check page count, metadata, text extraction, and overfull lines
+make lint     # Prettier and ShellCheck
+make format   # fix what lint reports
+```
+
+The [AltaCV](https://github.com/liantze/AltaCV) class under `vendor/altacv/` is used as published.
+Every change to the look lives in `cvstyle.sty`, and the words in `tom-dobson-cv.tex`.
+
+## Releasing
+
+```sh
+make preview               # refresh .github/preview.png, then commit it
+git tag v2026.09.02        # vYYYY.MM.DD
+git push --follow-tags
+```
+
+The [workflow](.github/workflows/build.yml) builds and checks the PDF, then creates the release with
+it attached. The download link above always resolves to the newest one.
+
+## Licence
+
+The tooling is MIT. The class in `vendor/altacv/` is LPPL and unmodified. The CV itself is mine, all
+rights reserved.
