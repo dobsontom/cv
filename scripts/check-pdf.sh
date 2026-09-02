@@ -4,15 +4,17 @@ set -euo pipefail
 
 pdf=${1:?usage: $0 <pdf>}
 log=${pdf%.pdf}.log
-max_pages=2
+# make preview renders exactly this many SVGs and the README embeds them by name, so a page
+# appearing or vanishing has to fail here rather than silently break the README.
+want_pages=2
 status=0
 
 info=$(pdfinfo "$pdf")
 text=$(pdftotext "$pdf" -)
 
 pages=$(awk '/^Pages:/ { print $2 }' <<<"$info")
-if ((pages > max_pages)); then
-  echo "FAIL: $pages pages, limit is $max_pages"
+if ((pages != want_pages)); then
+  echo "FAIL: $pages pages, expected $want_pages"
   status=1
 else
   echo "ok: $pages pages"

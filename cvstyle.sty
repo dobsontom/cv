@@ -29,6 +29,7 @@
 \colorlet{tagline}{SlateGrey}
 \colorlet{heading}{black}
 \colorlet{headingrule}{LightGrey}
+\colorlet{divider}{LightGrey!25}
 \colorlet{accent}{SlateGrey}
 \colorlet{emphasis}{black}
 \colorlet{body}{SlateGrey}
@@ -86,13 +87,16 @@
 
 \NewDocumentCommand{\cvmetric}{m}{{\color{emphasis}\textbf{#1}}}
 
+% A macro rather than a length, so it tracks the \baselineskip in force where the rule is drawn.
+\newcommand{\cvdividersep}{0.8\baselineskip}
 % Drawn only between roles, never above the first in a section or below the last, which the
-% \if@cvfirstinsection branch in \cvrole gets for free.
-% \nointerlineskip drops the baselineskip glue before the rule, so the two \vspace values around it
-% are the whole gap and can be matched by eye.
+% \if@cvfirstinsection branch in \cvrole gets for free. \nointerlineskip drops the baselineskip glue
+% the rule would otherwise sit on, so \cvdividersep alone sets the gap and centres it.
 \newcommand{\cvdivider}{%
+  \addvspace{\cvdividersep}%
   \nointerlineskip
-  \noindent{\color{LightGrey!25}\rule{\linewidth}{0.4pt}}\par
+  \noindent{\color{divider}\rule{\linewidth}{0.4pt}}\par
+  \vspace{\cvdividersep}%
 }
 
 % #1 title, #2 employer, #3 dates
@@ -102,7 +106,7 @@
     \@cvfirstinsectionfalse
   \else
     \if@cvdividers
-      \addvspace{0.8\baselineskip}\cvdivider\vspace{0.8\baselineskip}%
+      \cvdivider
     \else
       \addvspace{1.1\baselineskip}%
     \fi
@@ -119,7 +123,7 @@
 \NewDocumentCommand{\cvskillline}{m m}{%
   \noindent
   \makebox[\cvskilllabelwidth][l]{\color{emphasis}#1}%
-  \parbox[t]{\dimexpr\linewidth-\cvskilllabelwidth\relax}{\raggedright\hyphenpenalty=10000 #2}%
+  \parbox[t]{\dimexpr\linewidth-\cvskilllabelwidth\relax}{\raggedright #2}%
   \par\smallskip
 }
 

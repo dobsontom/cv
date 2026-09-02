@@ -2,9 +2,6 @@ PDF := build/tom-dobson-cv.pdf
 PRETTIER := npx --yes prettier@3.9.6
 TAG ?= v$(shell date +%Y.%m.%d)
 
-# Pins pdfTeX's timestamps to the last commit, so rebuilding a commit gives a byte-identical PDF.
-export SOURCE_DATE_EPOCH ?= $(shell git log -1 --format=%ct 2>/dev/null || date +%s)
-
 .PHONY: pdf check lint format preview release clean
 
 pdf:
@@ -26,7 +23,7 @@ preview: pdf
 
 # Depends on preview so a stale image shows up as a dirty tree here rather than on the README.
 release: check preview
-	@git diff --quiet && git diff --cached --quiet \
+	@git diff --quiet HEAD \
 		|| { echo 'commit your changes, the refreshed preview included, before releasing' >&2; exit 1; }
 	git tag $(TAG)
 	git push --follow-tags

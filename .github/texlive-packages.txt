@@ -7,7 +7,7 @@ latexmk
 extsizes etoolbox xcolor cmap mmap ragged2e enumitem multirow changepage dashrule ifmtarg
 adjustbox collectbox pgf tcolorbox tikzfill environ trimspaces
 pdfx xmpincl everyshi accsupp
-fontawesome5 simpleicons
+fontawesome5
 
 # cvstyle.sty
 sourcesanspro mweights xkeyval ly1 fontname microtype needspace
