@@ -30,10 +30,10 @@ infrastructure is part of the job.
 \cvrole{Data Engineer}{tails.com}{Mar 2026 -- present}
 \begin{itemize}
   \item Cut Snowflake spend \cvmetric{46\%}, saving around \$100k per year, by removing unused and
-        over-scheduled compute and sizing each warehouse, Gen2 included, on measured workload
-  \item Migrated every ingestion source to self-hosted Airbyte on EKS and retired every paid
-        ingestion platform, cutting ETL licence spend \cvmetric{94\%}, around \$60k per year
-  \item Eliminated shared static credentials on the production databases, replacing them with
+        over-scheduled compute and sizing each warehouse on measured workload
+  \item Migrated every paid ingestion platform to self-hosted Airbyte on EKS, cutting ETL licence
+        spend \cvmetric{94\%}, around \$60k per year
+  \item Eliminated shared static credentials on production databases, replacing them with
         per-person IAM authentication, 15-minute tokens, and role-scoped grants, so every
         production query traces to an engineer. Live on the core production databases, over
         \cvmetric{4 TB} between them
