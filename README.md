@@ -10,7 +10,7 @@ Tom Dobson's CV, written in LaTeX and built by GitHub Actions
 
 **[Download the PDF](https://github.com/dobsontom/cv/releases/latest/download/tom-dobson-cv.pdf)**
 
-![Page one of the CV](.github/preview.png)
+![Page one of the CV](.github/preview.svg)
 
 </div>
 
@@ -35,7 +35,7 @@ Every change to the look lives in `cvstyle.sty`, and the words in `tom-dobson-cv
 ## Releasing
 
 ```sh
-make preview               # refresh .github/preview.png, then commit it
+make preview               # refresh .github/preview.svg, then commit it
 git tag v2026.09.02        # vYYYY.MM.DD
 git push --follow-tags
 ```
