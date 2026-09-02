@@ -1,220 +1,118 @@
-% Supply PDF metadata
-\begin{filecontents*}{\jobname.xmpdata}
-  \Title{Tom Dobson · Curriculum Vitae}
-  \Author{T. M. Dobson}
-  \Language{en-GB}
-  \Keywords{Tom Dobson\sep Curriculum Vitae\sep CV\sep Résumé\sep Analytics Engineer\sep Data Consultant\sep Data Analyst\sep SQL\sep Tableau\sep Python\sep dbt\sep Alteryx\sep Power BI}
-  \Subject{Professional CV highlighting extensive experience in data analytics and consulting across multiple industries.}
-\end{filecontents*}
-
-\PassOptionsToPackage{dvipsnames}{xcolor}
-
-\documentclass[10pt, a4paper, withhyper, ragged2e]{altacv}
-
-% Set the page layout
-\geometry{left=1.25cm, right=1.25cm, top=1cm, bottom=1cm, columnsep=1.2cm, footskip=2\baselineskip}
-
-% Use paracol package to typeset columns in parallel
-\usepackage{paracol}
-
-% Use microtype package to improve typesetting
-% \usepackage{microtype}
-
-% Set the fonts, taking into account the current compiler
-% To compile with XeLaTeX please use:
-% xelatex -shell-escape -output-driver="xdvipdfmx -z 0" tom-dobson-cv.tex
-\ifxetexorluatex
-% If using XeLaTeX or LuaLaTeX:
-  \setmainfont{Source Sans Pro}
-  \setsansfont{Source Sans Pro}
-  \renewcommand{\familydefault}{\sfdefault}
-\else
-% If using pdfLaTeX:
-  \usepackage{sourcesanspro}
-  \renewcommand{\familydefault}{\sfdefault}
-\fi
-
-% Set the colours
-\definecolor{DimGrey}{HTML}{696969}
-\definecolor{SlateGrey}{HTML}{2E2E2E}
-\definecolor{LightGrey}{HTML}{666666}
-\definecolor{Black}{HTML}{000000}
-\colorlet{name}{Black}
-\colorlet{tagline}{Black}
-\colorlet{heading}{Black}
-\colorlet{headingrule}{LightGrey}
-\colorlet{subheading}{SlateGrey}
-\colorlet{accent}{SlateGrey}
-\colorlet{emphasis}{Black}
-\colorlet{body}{Black}
-
-% Adjust the fonts
-% \renewcommand{\namefont}{\Huge\bfseries}
-% \renewcommand{\personalinfofont}{\footnotesize\bfseries}
-% \renewcommand{\cvsectionfont}{\LARGE\rmfamily\bfseries}
-% \renewcommand{\cvsubsectionfont}{\large\bfseries}
-
-% Change the marks used for itemise bullets, \cvskill ratings, and \cvevent date and location
-\renewcommand{\cvItemMarker}{{\small\textbullet}}
-\renewcommand{\cvRatingMarker}{\faCircle}
-\renewcommand{\cvLocationMarker}{\faMapMarker*}
-% \renewcommand{\cvDateMarker}{\faCalendar*[regular]}
-
-% Use BibLaTeX to handle citations and set .bib file
-\usepackage[
-    backend=biber,
-    style=science,
-    hyperref=true,
-    abbreviate=true,
-    date=year,
-    sorting=none,
-    autocite=footnote,
-    autopunct=true
-]{biblatex}
-\addbibresource{tom-dobson-cv.bib}
-
-% Adjust footnote rule formatting
-\makeatletter
-\def\footnoterule{%
-\kern-3\p@ \hbox{%
-\tikz{\fill[color=LightGrey] (0,0) rectangle (1in,.6pt);}%
-}%
-\kern 2.6\p@\vskip2pt}
-\makeatother
+\documentclass[10pt,a4paper,withhyper,ragged2e]{altacv}
+\usepackage{cvstyle}
 
 \begin{document}
-    \name{Tom Dobson}
-    % \tagline{Experienced Analytics Consultant with a Master's in Biological Sciences. Loves solving data problems with SQL, Python, Tableau, dbt, Alteryx, and Power BI.}
-    \personalinfo{
-    \email{dobs.tx@gmail.com}\par
-    \linkedin{dobsontom}
-    \hfill\location{London, UK}\par
-    \github{dobsontom}
-    \hfill\phone{+44 (0)7968 673704} 
-  }
 
-    \makecvname
+\name{Tom Dobson}
+\tagline{Data Engineer}
+\personalinfo{%
+  \email{dobs.tx@gmail.com}
+  \linkedin{dobsontom}
+  \github{dobsontom}
+  \location{London, UK}
+  \source{dobsontom/cv}
+}
+\makecvheader
 
-    % Reduce the size of fonts in itemise environments
-    \AtBeginEnvironment{itemize}{\small}
+\cvsection{Summary}
 
-    % Set the left:right column width ratio (default 6:4)
-    \columnratio{0.6}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
+in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste
+natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
+ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
+ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+dolores eos qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum
+quia dolor sit amet, consectetur, adipisci velit.
 
-    % Start a two-column paracol
-    \begin{paracol}{2}
-    \cvsection{Experience}
-        \customcvevent{Analytics Consultant}{The Information Lab (TIL)}{Apr 2022 -- Present}{London}
-        \begin{itemize}
-            \item Leveraged expertise in SQL, Tableau, Python, Power BI, and Alteryx for major clients, measurably reducing operational costs and increasing efficiency
-            \item Orchestrated the end-to-end delivery of data tools and infrastructure for Inmarsat, IAG Cargo, and the BBC, as detailed below
-            \item Designed and implemented automations using Python, SQL, and GitHub Actions to detect and publicise new User Group events, increasing engagement by \textbf{80\%}
-            \item Automated the detection of new client opportunities in Notion and generation of supporting documentation, directly saving \textbf{0.25 FTE} and eliminating human error
-            % \item Delivered in-person and online training in Tableau and Alteryx across a number of clients and sectors, including the University of Hertfordshire
-            \\\medskip
-            \cvtag{SQL} \cvtag{Snowflake} \cvtag{Tableau} \cvtag{Python} \cvtag{Git} \cvtag{Alteryx} \cvtag{Power BI}
-        \end{itemize}
+\cvsection{Experience}
 
-        \divider
+\cvrole{Data Engineer}{tails.com}{Mar 2026 -- present}
+\begin{itemize}
+  \item Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+    laboris nisi ut aliquip ex ea commodo consequat
+  \item Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+    nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+  \item Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+    laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+    architecto beatae vitae dicta sunt explicabo
+  \item Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt, neque porro quisquam
+  \item Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam,
+    nisi ut aliquid ex ea commodi consequatur. Quis autem vel eum iure reprehenderit
+  \item At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+    voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+    cupiditate non provident, similique sunt in culpa
+  \item Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet
+    ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur
+  \item Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id
+    quod maxime placeat facere possimus, omnis voluptas assumenda est
+\end{itemize}
 
-        \customcvevent{Insight Analyst \hfill\small\textit{Contracting via TIL}}{Inmarsat}{Jan 2024 -- Present}{London}
-        \begin{itemize}
-            \item Developed a revenue protection system using SQL and Tableau, exposing over \textbf{£2.9m} in annualised revenue at risk
-            \item Directed the migration of critical ETL pipelines from Alteryx to GCP, saving \textbf{£100k} in licence fees and enhancing data delivery reliability
-            \item Modelled a data mart in GCP to consolidate performance data from 15 tables and created a Tableau interface to alert on performance changes
-            \item Implemented Git for version control, ensuring robust change tracking and code management
-            \item Authored comprehensive wikis and technical documentation, simplifying asset handover and future development
-            % \scriptsize
-            % \begin{center}\textit{"I think this may be the best dashboard I have ever seen come from within our own ranks."}\\Chuck Mosely, Sales Director\end{center}
-            % \normalsize
-            \\\medskip
-            \cvtag{SQL} \cvtag{GCP} \cvtag{Tableau} \cvtag{dbt} \cvtag{Git} \cvtag{Alteryx} \cvtag{ADF}
-        \end{itemize}
+\cvrole{Analytics Engineer}{tails.com}{Oct 2024 -- Mar 2026}
+\begin{itemize}
+  \item Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+  \item Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+    nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+    deserunt mollit anim id est laborum
+  \item Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+    laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis
+  \item Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt, neque porro quisquam
+    est, qui dolorem ipsum quia dolor sit amet
+  \item Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam,
+    nisi ut aliquid ex ea commodi consequatur. Quis autem vel eum iure reprehenderit qui in ea
+  \item At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+    voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint
+  \item Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet
+    ut et voluptates repudiandae sint et molestiae non recusandae
+\end{itemize}
 
-        \divider
+\cvrole{BI Consultant, contract via The Information Lab}{Viasat}{Jan 2024 -- Oct 2024}
+\begin{itemize}
+  \item Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+  \item Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+    nulla pariatur. Excepteur sint occaecat cupidatat non proident
+\end{itemize}
 
-        \customcvevent{Advanced Analytics \& Reporting Analyst \hfill\small\textit{Contracting via TIL}}{IAG Cargo}{Feb 2023 -- Aug 2023}{London}
-        \begin{itemize}
-            \item Developed SQL procedures and Tableau interface for automatic, intelligent warehouse task distribution, saving \textbf{1 FTE} and enabling a reduction in headcount
-            \item Designed an automated system using SQL to expose \textbf{£98k} in incorrectly declared cargo in 2023 and enabled the recuperation of lost revenue via automated incident reporting
-            \item Re-engineered an Oracle database schema, reducing discrepancies in performance reporting from 15\% to \textbf{less than 1\%}
-            \item Modelled a new data mart in GCP, enabling the new product offering of customer CO\textsubscript{2} emissions reporting
-            \item Conducted a full audit of an undocumented real-time database for performance monitoring potential and presented findings to senior stakeholders
-            \\\medskip
-            \cvtag{SQL} \cvtag{Oracle 11\textit{g}} \cvtag{Tableau} \cvtag{BusinessObjects}
-        \end{itemize}
+\cvrole{Analytics Consultant}{The Information Lab}{Apr 2022 -- Aug 2024}
+\begin{itemize}
+  \item Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+    laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+    architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
+  \item Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam,
+    nisi ut aliquid ex ea commodi consequatur
+  \item At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+    voluptatum deleniti atque corrupti quos dolores et quas molestias
+\end{itemize}
 
-        \divider
+\cvsection{Skills}
 
-        \customcvevent{Tableau \& Alteryx Consultant \hfill\small\textit{Contracting via TIL}}{The BBC}{Jul 2022 -- Jan 2023}{London}
-        \begin{itemize}
-            \item Designed data pipelines to consolidate over \textbf{6m} rows of survey data and created a Tableau front end to enable self-service insight discovery
-            \item Automated daily reporting of high-performing articles for senior stakeholders using Alteryx
-            % \item Collaborated with internal and external stakeholders to construct a dashboard supporting a global understanding of brand perception
-            % \item Built a Tableau dashboard to highlight articles and themes with consistent and long-lasting traffic to guide content creation
-            \\\medskip
-            \cvtag{SQL} \cvtag{Redshift} \cvtag{Tableau} \cvtag{Alteryx}
-        \end{itemize}
+\cvskillline{Platform}{Lorem ipsum, dolor sit amet, consectetur adipiscing, elit sed do (eiusmod,
+  tempor, incididunt), ut labore et dolore, magna aliqua (ut enim, ad minim, veniam, quis),
+  nostrud exercitation, ullamco}
+\cvskillline{Data and code}{Laboris nisi, ut aliquip (ex ea, commodo, consequat), duis aute irure,
+  dolor in, reprehenderit, voluptate velit esse}
+\cvskillline{Quality}{Cillum dolore, eu fugiat, nulla pariatur, excepteur, sint occaecat, cupidatat
+  non proident, sunt in culpa}
+\cvskillline{Prior}{Qui officia, deserunt, mollit anim, id est laborum, sed ut, perspiciatis unde}
 
-    % Switch to the right column
-    \switchcolumn
+\cvsection{Education}
 
-    \cvsection{Contact}
-        \makecvinfo
+\cvrole{MSc by Research, Biological Sciences}{University of Bristol}{2020 -- 2022}
+Thesis nominated for the Postgraduate Dissertation Prize for the best MSc or PhD thesis
 
-    \cvsection{Skills}
-        \cvskill{Tableau}{5}
-        \cvskill{SQL}{5}
-        \cvskill{Alteryx}{4}
-        \cvskill{Python}{3}
-        \cvskill{dbt}{3}
-        \cvskill{Power BI}{3}
+\cvrole{BSc (Hons) Biology, First Class}{University of Bristol}{2016 -- 2019}
 
-        % \small{$\bullet$  = Proficient\hfill
-        % $\bullet$$\bullet$$\bullet$$\bullet$$\bullet$ = Expert}
+\cvsection{Training}
 
-        \divider
+\cvrole{AI Bootcamp}{STX Next}{Jun 2026}
+Four weeks of hands-on AI-assisted software delivery: planning and context engineering, backend
+and frontend delivery, testing, and LLM and MCP integration
 
-        \textbf{\faDatabase \:Databases}
-        \\\medskip
-        \cvtag{BigQuery} \cvtag{Snowflake} \cvtag{PostgreSQL}
-        \\\smallskip
-        \cvtag{Oracle 11\textit{g}} \cvtag{MS SQL Server}
-
-        \divider
-
-        \textbf{\faGithub \:Management}
-        \\\medskip
-        \cvtag{GitHub} \cvtag{Jira} \cvtag{Notion}
-        \\\smallskip
-        \cvtag{Confluence}
-
-        \divider
-
-        \textbf{\faCogs \:Data Engineering}
-        \\\medskip
-        \cvtag{SQL} \cvtag{Python} \cvtag{dbt} \cvtag{Git}
-        \\\smallskip
-        \cvtag{PowerShell} \cvtag{YAML}
-
-        \divider
-
-        \textbf{\faFlask \:Data Science}
-        \\\medskip
-        \cvtag{Jupyter} \cvtag{NumPy} \cvtag{pandas}
-
-    \cvsection{Certifications}
-        \cvachievement{./icons/dbt-logo.pdf}{dbt Fundamentals}{Jun 2024}{}
-        \cvachievement{./icons/alteryx-logo.pdf}{Alteryx Designer Advanced}{Mar 2024}{}
-        \cvachievement{./icons/pbi-logo.pdf}{Power BI Data Analyst Associate}{Oct 2023}{}
-        \cvachievement{./icons/tableau-logo.pdf}{Tableau Certified Data Analyst}{Aug 2023}{}
-
-    \cvsection{Education}
-        \cvevent{MSc (R) Biological Sciences}{University of Bristol}{Sep 2016 -- Aug 2021}{}
-        \small{\faTrophy \;Nominee · Best PhD\hspace{0.5pt}/\hspace{0.5pt}MSc Thesis\footfullcite{dobson2022}}
-        \\\smallskip
-        \small{\faGraduationCap \;First Class · BSc}
-        \\\medskip
-        \cvtag{Python} \cvtag{R} \cvtag{SPSS} \cvtag{\LaTeX}
-    \end{paracol}
 \end{document}
