@@ -1,0 +1,13 @@
+# TeX Live 2023, the release Ubuntu 24.04 packages, so CI and a local apt install agree.
+# scheme-basic carries the kernel, hyperref, geometry, babel, and the tools bundle.
+scheme-basic
+latexmk
+
+# altacv.cls
+extsizes etoolbox xcolor cmap mmap ragged2e enumitem multirow changepage dashrule ifmtarg
+adjustbox collectbox pgf tcolorbox tikzfill environ trimspaces
+pdfx xmpincl everyshi accsupp
+fontawesome5 simpleicons
+
+# cvstyle.sty
+sourcesanspro mweights xkeyval ly1 fontname microtype needspace
