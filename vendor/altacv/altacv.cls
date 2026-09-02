@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%
-% This is altacv.cls (v1.7.1, 25 Aug 2023) written by
+% This is altacv.cls (v1.7.4, 30 Jul 2025) written by
 % LianTze Lim (liantze@gmail.com).
 %
 %% It may be distributed and/or modified under the
@@ -19,10 +19,11 @@
 
 %%%%%%%%%%%%%%%%
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{altacv}[2023/08/25 AltaCV v1.7.1, yet another alternative class for a resume/curriculum vitae.]
+\ProvidesClass{altacv}[2025/07/30 AltaCV v1.7.4, yet another alternative class for a resume/curriculum vitae.]
 
 %% v1.1: Optionally load academicons
 %% v1.4: Nope, academicons is unnecessary; fontawesome5 has \faOrcid.
+%% v1.7.3: Re backward compatibility we'll now load academicons automatically for \aiOrcid if ≤TL2019 i.e. if \faOrcid undefined
 \DeclareOption{academicons}{\ClassWarning{altacv}{academicons option is now obsolete and unnecessary.}}
 %% v1.1.3: Choice of round/square photo
 \newif\if@normalphoto
@@ -31,35 +32,48 @@
 \newif\if@raggedtwoe
 \DeclareOption{ragged2e}{\@raggedtwoetrue}
 %% v1.3: load hyperref for clickable hyperlinks
-\newif\if@withhyper
+\newif\if@withhyper\@withhyperfalse
 \DeclareOption{withhyper}{\@withhypertrue}
 \ProcessOptions\relax
 
 \LoadClass{extarticle}
+\RequirePackage{etoolbox}
+%% v1.7.4: use etoolbox toggles to fix accsupp ActualText bugs when withhyper enabled
+\newtoggle{withhyper}\togglefalse{withhyper}
+\if@withhyper\toggletrue{withhyper}\fi
+% v1.7.3 Load xcolor early to avoid receiving `hyperref` option from pdfx package
+\RequirePackage{xcolor}
 %% v1.3.2 Hopefully this helps make the PDF
 %% file more 'friendly' with copy-paste etc
-\RequirePackage{etoolbox}
 \RequirePackage[a-1b]{pdfx}
 \RequirePackage{accsupp}
-\RequirePackage[margin=2cm]{geometry}
-\RequirePackage[fixed]{fontawesome5}
-\RequirePackage{ifxetex,ifluatex}
-\RequirePackage{scrlfile}
+%% v1.7.3 Avoid 'Token not allowed' when \\ used with accsupp
+\pdfstringdefDisableCommands{
+  \let\\\space
+}
 \RequirePackage{xparse}
+\RequirePackage[margin=2cm]{geometry}
+\RequirePackage[fixed]{fontawesome5}%[2020-01-15]
 
-%% v1.1.5: added for convenience
-\newif\ifxetexorluatex
-\ifxetex
-  \xetexorluatextrue
-\else
-  \ifluatex
-    \xetexorluatextrue
+% 1.7.3 For backward compatibility
+\providecommand\IfFormatAtLeastTF{\@ifl@t@r\fmtversion}
+\IfFormatAtLeastTF{2021-11-15}{}{\RequirePackage{scrlfile}}
+
+% v1.7.2 Add simpleicons to provide X icon
+% v1.7.3 But first check if the package files exist
+\IfFileExists{simpleiconsglyphs-pdftex.tex}{\RequirePackage{simpleicons}}{}
+
+% v1.7.3 Use iftex for easier access to \iftutex
+\RequirePackage{iftex}
+% ...but still check for backward compatibility
+\ifundef{\iftutex}{%
+  \newif\iftutex
+  \ifxetex\tutextrue
   \else
-    \xetexorluatexfalse
+    \ifluatex\tutextrue\else\tutexfalse\fi
   \fi
-\fi
-
-\ifxetexorluatex
+}{}
+\iftutex 
   \RequirePackage{fontspec}
 \else
   %% v1.3.2 attempts to make ligatures
@@ -79,14 +93,13 @@
   \RequirePackage[newcommands]{ragged2e}
 \fi
 
-\if@withhyper
-  \AtBeginDocument{%
-    \hypersetup{hidelinks}
-    \urlstyle{same}
-  }
-\fi
-
-\RequirePackage{xcolor}
+% 1.7.3 For backward compatibility re hooks management
+\iftoggle{withhyper}{%
+\IfFormatAtLeastTF{2020-10-01}{%
+  \AddToHook{begindocument/before}{\hypersetup{hidelinks}\urlstyle{same}}
+}{%
+  \AtBeginDocument{\hypersetup{hidelinks}\urlstyle{same}}
+}}{}
 
 \colorlet{accent}{blue!70!black}
 \colorlet{emphasis}{black}
@@ -119,7 +132,7 @@
 \RequirePackage{changepage}
 
 \setlength{\parindent}{0pt}
-\newcommand{\divider}{\textcolor{body!30}{\hdashrule{\linewidth}{0.2pt}{0.5ex}}\medskip}
+\newcommand{\divider}{\textcolor{body!30}{\hdashrule{\linewidth}{0.6pt}{0.5ex}}\medskip}
 
 \newenvironment{fullwidth}{%
   \begin{adjustwidth}{}{\dimexpr-\marginparwidth-\marginparsep\relax}}
@@ -142,28 +155,32 @@
 }%
 }
 %% v1.3: Incorporating hyperlinks
-%% v1.3.1: using \unfriendlydetokenize to avoid breaking unicode
+%% v1.3.1: using \utffriendlydetokenize to avoid breaking unicode
 %% v1.6: Use accsupp so that when copying/pasting the icon from PDF to a text
 %%       file, the icon name is pasted
 %% v1.7: Some tweaks/corrections so that accsupp is for icons only
 %% v1.7.1: Bugfix to support some symbol commands e.g. academicons commands 
 \ExplSyntaxOn
-\NewDocumentCommand{\printinfo}{m m o}{%
-  \IfNoValueTF{#3}{%
+\NewDocumentCommand{\printinfo}{o m m o}{%
+  \IfNoValueTF{#4}{%
     \mbox{\textcolor{accent}%
-    {\BeginAccSupp{method=escape,ActualText={\detokenize{#1}:}}\normalfont #1\EndAccSupp{}}%
-    ~\utffriendlydetokenize{#2}\hspace{2em}}%
-  }{%
-     \if@withhyper%
+    {\BeginAccSupp{method=escape,ActualText={\IfNoValueTF{#1}{\detokenize{#2}}{#1}:\space}}\normalfont #2\EndAccSupp{}}%
+    ~\utffriendlydetokenize{#3}\hspace{2em}}%
+  }{% v1.7.4: fix accsupp ActualText bugs when withhyper enabled
+    \iftoggle{withhyper}{%
       \mbox{\textcolor{accent}%
-      {\BeginAccSupp{method=escape,ActualText={\detokenize{#1}:}}\normalfont #1\EndAccSupp{}}%
-      ~\href{#3}{\utffriendlydetokenize{#2}}\hspace{2em}}
-     \else%
+      {\BeginAccSupp{method=escape,ActualText={\IfNoValueTF{#1}{\detokenize{#2}}{#1}:\space}}\normalfont #2\EndAccSupp{}}%
+      ~%
+      \BeginAccSupp{method=escape,ActualText={#4}}%
+      \href{#4}{\utffriendlydetokenize{#3}}%
+      \EndAccSupp{}%
+      \hspace{2em}}%
+     }{%
        \ClassWarning{Please specify [withhyper] option to enable hyperlinks. Printing out full hyperlink prefix #1 for now.}%
       \mbox{\textcolor{accent}
-      {\BeginAccSupp{method=escape,ActualText={\detokenize{#1}:}}\normalfont #1\EndAccSupp{}}%
-      ~{\utffriendlydetokenize{#3#2}}\hspace{2em}}%
-     \fi%
+      {\BeginAccSupp{method=escape,ActualText={\IfNoValueTF{#1}{\detokenize{#2}}{#1}:\space}}\normalfont #2\EndAccSupp{}}%
+      ~{\utffriendlydetokenize{#4}}\hspace{2em}}%
+    }%
   }%
 }%
 
@@ -174,26 +191,18 @@
   \IfBooleanF{#1}{
     \IfNoValueF{#4}{\csdef{#2 hyperprefix}{#4}}%
   }
-  \csdef{#2 symbol}{#3}%
+  \csdef{#2 symbol}{#3}
   \IfBooleanTF{#1}
     { \csdef{#2}##1##2{%
-        \if@withhyper
-          \IfNoValueTF {##2}
-            {\printinfo{\csuse{#2 symbol}}{##1}}%
-            {\printinfo{\csuse{#2 symbol}}{##1}[##2]}%
-        \else
-          \printinfo{\csuse{#2 symbol}}{##1}%
-        \fi%
+        \IfNoValueTF {##2}
+          {\printinfo[#2]{\csuse{#2 symbol}}{##1}}%
+          {\printinfo[#2]{\csuse{#2 symbol}}{##1}[##2]}%
       }%
     }
     { \csdef{#2}##1{%
-        \if@withhyper
-          \IfNoValueTF {#4}
-            {\printinfo{\csuse{#2 symbol}}{##1}}%
-            {\printinfo{\csuse{#2 symbol}}{##1}[\csuse{#2 hyperprefix}##1]}%
-        \else
-          \printinfo{\csuse{#2 symbol}}{##1}%
-        \fi%
+        \IfNoValueTF {#4}
+          {\printinfo[#2]{\csuse{#2 symbol}}{##1}}%
+          {\printinfo[#2]{\csuse{#2 symbol}}{##1}[\csuse{#2 hyperprefix}##1]}%
       }%
     }
 }
@@ -207,10 +216,25 @@
 \NewInfoField{phone}{\faPhone}[tel:]
 \NewInfoField{homepage}{\faGlobe}[https://]
 \NewInfoField{twitter}{\faTwitter}[https://twitter.com/]
+% v1.7.2 twitter.com is now X.com; v1.7.3 but only use the new icon if it's been defined
+\ifcsdef{simpleicon@xicon}
+ {\NewInfoField{xtwitter}{\raisebox{-0.2ex}{\scalebox{0.95}{\simpleicon{x}}}\,}[https://x.com/]}
+ {\let\xtwitter\twitter%
+  \pretocmd{\xtwitter}{\ClassWarning{altacv}{You tried to use \string\xtwitter, but the new X icon isn't available. Please ensure you have updated the `simpleicons' package. Falling back to \string\twitter\space icon for now}}{}{}%
+ }
 \NewInfoField{linkedin}{\faLinkedin}[https://linkedin.com/in/]
 \NewInfoField{github}{\faGithub}[https://github.com/]
-% v1.?? Use fontawesome5 for Orcid symbol
-\NewInfoField{orcid}{\faOrcid}[https://orcid.org/]
+% v1.7.3 Backward compatibility for ORCiD icon
+\ifdef{\faOrcid}{
+  \NewInfoField{orcid}{\faOrcid}[https://orcid.org/]
+}{\iftutex
+    \RequirePackage{academicons}
+    \NewInfoField{orcid}{\aiOrcid\space}[https://orcid.org/]
+  \else
+    \ClassWarning{altacv}{ORCID icon for \string\orcid\space unavailable in pdflatex. Please compile with XeLaTeX or LuaLaTeX; or upgrade your LaTeX distribution and packages}
+    \NewInfoField{orcid}{\fbox{O?}\space}[https://orcid.org/]
+  \fi
+}
 \NewInfoField{location}{\cvLocationMarker}
 
 % v1.2: Support for multiple photos
@@ -254,40 +278,25 @@
 }
 \let\photo\photoR
 
-\newcommand{\namefont}{\huge\bfseries}
-\newcommand{\taglinefont}{\small}
+\newcommand{\namefont}{\Huge\bfseries}
+\newcommand{\taglinefont}{\large\bfseries}
 \newcommand{\personalinfofont}{\footnotesize\bfseries}
-\newcommand{\cvsectionfont}{\Large\bfseries}
+\newcommand{\cvsectionfont}{\LARGE\bfseries}
 \newcommand{\cvsubsectionfont}{\large\bfseries}
 
-\newcommand{\makecvname}{%
+\newcommand{\makecvheader}{%
   \begingroup
-%    \altacv@left@photos\hfill%
+    \altacv@left@photos\hfill%
     \begin{minipage}{\dimexpr\linewidth-\altacv@photos@width}%
     \raggedright%
     {\namefont\color{name}\MakeUppercase{\@name}\par}
-    % \medskip
-    % {\taglinefont\color{tagline}\@tagline\par}
-    % \medskip
-%    {\personalinfofont\@personalinfo\par}
-    \end{minipage}\hfill%
-%    \altacv@right@photos\par%
-  \endgroup%\smallskip
-}
-
-\newcommand{\makecvinfo}{%
-  \begingroup
-%    \altacv@left@photos\hfill%
-    \begin{minipage}{\dimexpr\linewidth-\altacv@photos@width}%
-    \raggedright%
-%    {\namefont\color{name}\MakeUppercase{\@name}\par}
-%    \medskip
-%    {\taglinefont\color{tagline}\@tagline\par}
-%    \medskip
+    \medskip
+    {\taglinefont\color{tagline}\@tagline\par}
+    \medskip
     {\personalinfofont\@personalinfo\par}
     \end{minipage}\hfill%
-%    \altacv@right@photos\par%
-  \endgroup%\medskip
+    \altacv@right@photos\par%
+  \endgroup\medskip
 }
 
 \renewenvironment{quote}{\color{accent}\itshape\large}{\par}
@@ -296,7 +305,7 @@
   \nointerlineskip\bigskip%  %% bugfix in v1.6.2
   \ifstrequal{#1}{}{}{\marginpar{\vspace*{\dimexpr1pt-\baselineskip}\raggedright\input{#1}}}%
   {\color{heading}\cvsectionfont\MakeUppercase{#2}}\\[-1ex]%
-  {\color{headingrule}\rule{\linewidth}{0.1pt}\par}\medskip
+  {\color{headingrule}\rule{\linewidth}{2pt}\par}\medskip
 }
 
 \newcommand{\cvsubsection}[1]{%
@@ -306,10 +315,9 @@
 
 % v1.1.4: fixes inconsistent font size
 % v1.7: adds accsupp ActualText for location and date markers
-
 \newcommand{\cvevent}[4]{%
   {\large\color{emphasis}#1\par}
-  \smallskip\small
+  \smallskip\normalsize
   \ifstrequal{#2}{}{}{
   \textbf{\color{accent}#2}\par
   \smallskip}
@@ -326,47 +334,29 @@
   \medskip\normalsize
 }
 
-\newcommand{\customcvevent}[4]{%
-  {\large\color{emphasis}#1\par}
-   \smallskip\small
-  \ifstrequal{#2}{}{}{
-  \textbf{\color{accent}#2}}
-  \ifstrequal{#3}{}{}{%
-    {\enspace\small\makebox[0.3\linewidth][l]%
-      {\BeginAccSupp{method=pdfstringdef,ActualText={\datename:}}\cvDateMarker\EndAccSupp{}%
-      ~#3}%
-    }}%
-  \ifstrequal{#4}{}{}{%
-    {\hfill\small\makebox[0.18\linewidth][r]%
-      {\BeginAccSupp{method=pdfstringdef,ActualText={\locationname:}}\cvLocationMarker\EndAccSupp{}%
-        ~#4}%
-    }}\par
-  \medskip\normalsize
-}
-
 % v1.7: adds accsupp for the icon as well
-\newcommand{\cvachievement}[4]{%
-  \begin{tabularx}{\linewidth}{@{}p{1.8em} @{\hspace{0.65em}} >{\raggedright\arraybackslash}X@{}}
-  \multirow{2}{*}{\includegraphics[height=1.35\baselineskip]{#1}} & \small\textcolor{emphasis}{#2}\\
-  & \footnotesize#3
+\newcommand{\cvachievement}[3]{%
+  \begin{tabularx}{\linewidth}{@{}p{2em} @{\hspace{1ex}} >{\raggedright\arraybackslash}X@{}}
+  \multirow{2}{*}{\Large\color{accent}\BeginAccSupp{method=escape,ActualText={#1: }}#1\EndAccSupp{}} & \bfseries\textcolor{emphasis}{#2}\\
+  & #3
   \end{tabularx}%
   \smallskip
 }
 
 \newcommand{\cvtag}[1]{%
-  \tikz[baseline]\node[anchor=base,draw=body!30,rounded corners,inner xsep=1ex,inner ysep =0.75ex,text height=1.5ex,text depth=.22ex]{\small#1};
+  \tikz[baseline]\node[anchor=base,draw=body!30,rounded corners,inner xsep=1ex,inner ysep =0.75ex,text height=1.5ex,text depth=.25ex]{#1};
 }
 
 % v1.6: Use accsupp so that the actual numeric value is copied/pasted
 %       and also support 0.5, 1.5, 2.5, 3.5, 4.5
 \newcommand{\cvskill}[2]{%
-  \small\textcolor{body}{{#1}}\hfill
+  \textcolor{emphasis}{\textbf{#1}}\hfill
   \BeginAccSupp{method=plain,ActualText={#2}}
   \foreach \x in {1,...,5}{%
     \ifdimequal{\x pt - #2 pt}{0.5pt}%
-    {\clipbox*{0pt -0.25ex {.5\width} {\totalheight}}{\color{body}\cvRatingMarker}%
+    {\clipbox*{0pt -0.25ex {.5\width} {\totalheight}}{\color{accent}\cvRatingMarker}%
      \clipbox*{{.5\width} -0.25ex {\width} {\totalheight}}{\color{body!30}\cvRatingMarker}}
-    {\ifdimgreater{\x bp}{#2 bp}{\color{body!30}}{\color{body}}\cvRatingMarker}%
+    {\ifdimgreater{\x bp}{#2 bp}{\color{body!30}}{\color{accent}}\cvRatingMarker}%
   }\EndAccSupp{}\par%
 }
 
@@ -455,32 +445,47 @@
 \def\my@namelist{}
 \newcommand{\mynames}[1]{\def\my@namelist{#1}}
 \newtoggle{boldname}
-\AddToHook{package/biblatex/after}{
-\renewcommand*{\mkbibnamefamily}[1]{%
-  \global\togglefalse{boldname}%
-  \foreach \my@fname / \my@gname in \my@namelist {%
-    \ifboolexpr{ test {\ifdefstrequal{\namepartfamily}{\my@fname}}
-                 and
-                 test {\ifdefstrequal{\namepartgiven}{\my@gname}}}
-      {\global\toggletrue{boldname}}{}%
+% v1.7.3 For backward compatibility re hooks management
+\IfFormatAtLeastTF{2021-11-15}{%
+  \AddToHook{package/biblatex/after}{%
+    \typeout{OK AddToHook biblatex after works}
+    \altacv@makeboldnames
   }%
-  \iftoggle{boldname}{\textbf{#1}}{#1}%
+}{%
+  \AfterPackage{biblatex}{%
+    \typeout{OK AfterPackage biblatex after works}
+    \altacv@makeboldnames
+  }%
 }
 
-\renewcommand*{\mkbibnamegiven}[1]{%
-  \global\togglefalse{boldname}%
-  \foreach \my@fname / \my@gname in \my@namelist{%
-    \ifboolexpr{ test {\ifdefstrequal{\namepartfamily}{\my@fname}}
-                 and
-                 test {\ifdefstrequal{\namepartgiven}{\my@gname}}}
-      {\global\toggletrue{boldname}\breakforeach}{}%
+\newcommand{\altacv@makeboldnames}{%
+  \renewcommand*{\mkbibnamefamily}[1]{%
+    \global\togglefalse{boldname}%
+    \foreach \my@fname / \my@gname in \my@namelist {%
+      \ifboolexpr{ test {\ifdefstrequal{\namepartfamily}{\my@fname}}
+                   and
+                   test {\ifdefstrequal{\namepartgiven}{\my@gname}}}
+        {\global\toggletrue{boldname}}{}%
+    }%
+    \iftoggle{boldname}{\textbf{##1}}{##1}%
   }%
-  \iftoggle{boldname}{\textbf{#1}}{#1}%
-}
+  % v1.7.4 will handle "von" "van" etc prefixes and "Jr" etc suffixes too
+  \let\mkbibnamegiven\mkbibnamefamily%
+  \let\mkbibnameprefix\mkbibnamefamily%
+  \let\mkbibnamesuffix\mkbibnamefamily%
 }
 
-\AddToHook{begindocument/before}{%
-  \pagestyle{empty}
-  \color{body}
-  \raggedright
+% 1.7.3 Backward compatibility for hooks management
+\IfFormatAtLeastTF{2020-10-01}{%
+  \AddToHook{begindocument/before}{%
+    \pagestyle{empty}%
+    \color{body}%
+    \raggedright%
+  }
+}{%
+  \AtBeginDocument{%
+    \pagestyle{empty}%
+    \color{body}%
+    \raggedright%
+  }
 }
