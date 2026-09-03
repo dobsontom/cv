@@ -58,22 +58,30 @@ infrastructure is part of the job.
 
 \cvrole{Analytics Engineer}{tails.com}{Oct 2024 -- Mar 2026}
 \begin{itemize}
-  \item Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-  \item Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-        nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-        deserunt mollit anim id est laborum
-  \item Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-        laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis
-  \item Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-        consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt, neque porro quisquam
-        est, qui dolorem ipsum quia dolor sit amet
-  \item Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam,
-        nisi ut aliquid ex ea commodi consequatur. Quis autem vel eum iure reprehenderit qui in ea
-  \item At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-        voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint
-  \item Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet
-        ut et voluptates repudiandae sint et molestiae non recusandae
+  \item Owned a dbt project of around \cvmetric{1,600} models on Snowflake and refactored it
+        entirely onto dbt's recommended conventions, moving every model into staging, intermediate,
+        and marts layers, standardising naming, linting, and grants, and carrying the breaking
+        changes through eight repos belonging to other teams
+  \item Cut dbt CI time \cvmetric{74\%}, from 14 minutes to around 3, by deferring unchanged models
+        to their production tables rather than rebuilding them and capping how far downstream each
+        change is tested
+  \item Rebuilt deployment and test workflows onto one shared definition of runner, authentication,
+        and dbt setup, cutting their YAML \cvmetric{48\%} whilst their number grew, and
+        parallelised linting, scoring, and compilation
+  \item Brought every model into YAML metadata, up from 21\%, and took documented columns from
+        under 1,000 to over \cvmetric{12,000}, with dbt-score failing CI on any touched resource
+        that is not fully documented and owned
+  \item Removed over \cvmetric{150,000} model builds a month, deprecating 400 dbt models on
+        measured build cost and query usage and stopping models rebuilding faster than their data
+        changes
+  \item Rewrote and incrementalised the most expensive dbt models, cutting the worst from up to 28
+        minutes to under \cvmetric{3} by inverting logic that had built every pet and product
+        combination, validated row for row against the original
+  \item Rebuilt dbt alerting on Elementary, tuned so only the \cvmetric{7.5\%} of detections that
+        need action reach an engineer, plus freshness checks that catch silent ingestion failures
+  \item Migrated the Airflow estate to v3 and retired v1, and cut image builds \cvmetric{94\%},
+        from 7 minutes to under 30 seconds, by stopping the image compiling from source on every
+        run
 \end{itemize}
 
 \cvrole{BI Consultant, contract via The Information Lab}{Viasat}{Jan 2024 -- Oct 2024}
