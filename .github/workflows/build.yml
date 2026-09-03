@@ -19,20 +19,26 @@ concurrency:
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: zauguin/install-texlive@6671d0c62046c7e349fe154d5208fe746b07e037 # v4.4.0
+      - name: Check out the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install TeX Live
+        uses: zauguin/install-texlive@6671d0c62046c7e349fe154d5208fe746b07e037 # v4.4.0
         with:
           texlive_version: 2023
           repository: https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2023/tlnet-final
           package_file: .github/texlive-packages.txt
-      - run: |
+      - name: Install poppler-utils
+        run: |
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends poppler-utils
-      - run: make check
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      - name: Build and check the PDF
+        run: make check
+      - name: Upload the PDF
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: ${{ env.PDF_NAME }}
           path: build/${{ env.PDF_NAME }}.pdf
@@ -40,13 +46,17 @@ jobs:
           retention-days: 30
 
   lint:
+    name: Lint
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - run: make lint
+      - name: Check out the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Run Prettier and ShellCheck
+        run: make lint
 
   release:
+    name: Release
     if: startsWith(github.ref, 'refs/tags/v')
     needs: [build, lint]
     runs-on: ubuntu-24.04
@@ -57,10 +67,12 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       GH_REPO: ${{ github.repository }}
     steps:
-      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      - name: Download the PDF
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: ${{ env.PDF_NAME }}
-      - run: |
+      - name: Publish the release
+        run: |
           # GitHub prints the tag beside the title, so the title carries the date without repeating it.
           title=${GITHUB_REF_NAME#v}
           gh release create "$GITHUB_REF_NAME" "$PDF_NAME.pdf" \
