@@ -42,8 +42,9 @@ make release               # tag today's date and push
 ```
 
 `make release` checks the PDF, refreshes the previews, and refuses to tag whilst anything is
-uncommitted. It tags `vYYYY.MM.DD` from today's date, so pass `TAG=` to override that or to cut a
-second release on a day that already has one.
+uncommitted. It tags `vYYYY.MM.DD` from today's date and needs `gh` on the path, since releasing
+again on the same day replaces that day's release rather than adding one. Pass `TAG=` to release
+under a different name.
 
 The [workflow](.github/workflows/ci.yml) builds and checks the PDF, then creates the release with it
 attached. The download link above always resolves to the newest one.
