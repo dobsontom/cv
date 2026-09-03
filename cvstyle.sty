@@ -121,9 +121,9 @@
 \setlength{\cvskilllabelwidth}{8em}
 % #1 label, #2 comma-separated items
 \NewDocumentCommand{\cvskillline}{m m}{%
-  \noindent
-  \makebox[\cvskilllabelwidth][l]{\color{emphasis}#1}%
-  \parbox[t]{\dimexpr\linewidth-\cvskilllabelwidth\relax}{\raggedright #2}%
+  \par\noindent
+  \hangindent=\cvskilllabelwidth\hangafter=1
+  \makebox[\cvskilllabelwidth][l]{\color{emphasis}#1}#2%
   \par\smallskip
 }
 
