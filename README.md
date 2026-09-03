@@ -45,8 +45,8 @@ make release               # tag today's date and push
 uncommitted. It tags `vYYYY.MM.DD` from today's date, so pass `TAG=` to override that or to cut a
 second release on a day that already has one.
 
-The [workflow](.github/workflows/build.yml) builds and checks the PDF, then creates the release with
-it attached. The download link above always resolves to the newest one.
+The [workflow](.github/workflows/ci.yml) builds and checks the PDF, then creates the release with it
+attached. The download link above always resolves to the newest one.
 
 ## Licence
 
