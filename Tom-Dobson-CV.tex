@@ -1,3 +1,6 @@
+% The class hardcodes pdfx's a-1b, which guarantees only that the page looks the same. Level u also
+% guarantees every glyph maps back to Unicode, which is what text extraction depends on.
+\PassOptionsToPackage{a-2u}{pdfx}
 \documentclass[10pt,a4paper,withhyper,ragged2e]{altacv}
 \usepackage{cvstyle}
 
