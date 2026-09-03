@@ -22,10 +22,11 @@ preview: pdf
 	pdftocairo -svg -f 2 -l 2 $(PDF) .github/preview-2.svg
 
 # Depends on preview so a stale image shows up as a dirty tree here rather than on the README.
+# The tag is annotated because --follow-tags silently skips a lightweight one and still exits 0.
 release: check preview
 	@git diff --quiet HEAD \
 		|| { echo 'commit your changes, the refreshed preview included, before releasing' >&2; exit 1; }
-	git tag $(TAG)
+	git tag -a $(TAG) -m '$(TAG)'
 	git push --follow-tags
 
 clean:
