@@ -36,16 +36,16 @@ infrastructure is part of the job.
         year, by removing unused and over-scheduled compute and sizing each warehouse on measured
         workload
   \item Migrated every ingestion source off paid platforms to self-hosted Airbyte on EKS, cutting
-        ETL licence spend \cvmetric{94\%}, around \$60k per year
+        ETL licence spend \cvmetric{94\%}, around \$64k per year
   \item Replaced static Aurora MySQL and Postgres credentials that anyone with Parameter Store
         access could read with per-person AWS IAM authentication, 15-minute tokens, and role-scoped
         grants, so every production query traces to an engineer
   \item Designed and built Snowflake governance as code in Terraform, with access managed from
         Google Groups through to Snowflake roles and all \cvmetric{15} service accounts moved from
         passwords to key-pair authentication
-  \item Profiled the production MySQL workload and removed \cvmetric{8\%} of its query volume,
-        including an N+1 lookup cached per item and an unindexed join scanning around 40,000 rows a
-        second to return 1,500
+  \item Profiled the production MySQL workload and removed \cvmetric{18\%} of its query volume
+        across a series of optimisations, including eliminating N+1 lookups via caching and
+        indexing a join that scanned around 40,000 rows a second to return 1,500
   \item Built the platform's new Airflow pipelines, landing survey and support-ticket sources in
         Snowflake and pushing customer segments and orders back into CX and marketing tools
   \item Audited every event path from the core application into Snowflake ahead of a platform
@@ -82,9 +82,9 @@ infrastructure is part of the job.
         combination, validated row for row against the original
   \item Rebuilt dbt alerting on Elementary, tuned so only the \cvmetric{7.5\%} of detections that
         need action reach an engineer, plus freshness checks that catch silent ingestion failures
-  \item Sole maintainer of the Airflow platform on EKS: migrated \cvmetric{12} DAGs off v1, took
-        it through every upgrade to v3.3, and cut image builds from 7 minutes to under 30 seconds
-        by no longer compiling the image from source on every run
+  \item Sole maintainer of the Airflow platform on EKS: migrated \cvmetric{12} DAGs off v1, took it
+        through every upgrade to v3.3, and cut image builds from 7 minutes to under 30 seconds by
+        no longer compiling the image from source on every run
 \end{itemize}
 
 \cvrole{BI Consultant, contract via The Information Lab}{Viasat}{Jan 2024 -- Oct 2024}
