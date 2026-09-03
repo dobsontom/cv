@@ -82,9 +82,9 @@ infrastructure is part of the job.
         combination, validated row for row against the original
   \item Rebuilt dbt alerting on Elementary, tuned so only the \cvmetric{7.5\%} of detections that
         need action reach an engineer, plus freshness checks that catch silent ingestion failures
-  \item Migrated the Airflow estate to v3 and retired v1, and cut image builds \cvmetric{94\%},
-        from 7 minutes to under 30 seconds, by stopping the image compiling from source on every
-        run
+  \item Sole maintainer of the Airflow platform on EKS: migrated \cvmetric{12} DAGs off v1, took
+        it through every upgrade to v3.3, and cut image builds from 7 minutes to under 30 seconds
+        by no longer compiling the image from source on every run
 \end{itemize}
 
 \cvrole{BI Consultant, contract via The Information Lab}{Viasat}{Jan 2024 -- Oct 2024}
