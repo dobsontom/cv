@@ -1,5 +1,5 @@
 PDF := build/Tom-Dobson-CV.pdf
-PRETTIER := npx --yes prettier@3.9.6
+PRETTIER := npx --yes prettier@latest
 TAG ?= v$(shell date +%Y.%m.%d)
 
 .PHONY: pdf check lint format preview release clean
