@@ -51,9 +51,9 @@ infrastructure is part of the job.
   \item Audited every event path from the core application into Snowflake ahead of a platform
         migration, found the one dependency with no replacement, and wrote the reference backend
         engineers used to design the Kafka topic that replaces it
-  \item Gave engineers secure AI-agent access to dbt and Snowflake through an MCP server on a
-        dedicated identity that can build in each developer's own database but never read unmasked
-        PII or write to production
+  \item Secured AI-agent access to dbt and Snowflake through an MCP server on a dedicated identity
+        that can build in each developer's own database but never read unmasked PII, write to
+        production, or escalate its own privileges
   \item Created and chair a biweekly data infrastructure meeting, running since March 2025, for the
         whole data team, its head included, where platform changes are agreed, Snowflake,
         ingestion, and dbt spend audited, and the work that follows prioritised
