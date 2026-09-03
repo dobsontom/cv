@@ -61,5 +61,7 @@ jobs:
         with:
           name: ${{ env.PDF_NAME }}
       - run: |
+          # GitHub prints the tag beside the title, so the title carries the date without repeating it.
+          title=${GITHUB_REF_NAME#v}
           gh release create "$GITHUB_REF_NAME" "$PDF_NAME.pdf" \
-            --title "$GITHUB_REF_NAME" --verify-tag --generate-notes
+            --title "${title//./-}" --verify-tag --generate-notes
