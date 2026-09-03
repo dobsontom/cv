@@ -1,28 +1,38 @@
 \Title{Tom Dobson: Curriculum Vitae}
 \Author{Tom Dobson}
 \Language{en-GB}
-\Subject{CV of Tom Dobson, Data Engineer}
+\Subject{Tom Dobson's curriculum vitae. Data engineer in London, owning a Snowflake, dbt, Airflow,
+  and Airbyte platform end to end, with the Terraform and Kubernetes beneath it, and working
+  inside the Aurora MySQL and Postgres databases behind the application.}
+\Copyright{\copyright\ Tom Dobson. All rights reserved.}
+\URLlink{https://github.com/dobsontom/cv/releases/latest/download/Tom-Dobson-CV.pdf}
 \Keywords{%
   Tom Dobson\sep%
   CV\sep%
   Curriculum Vitae\sep%
   Resume\sep%
   Data Engineer\sep%
+  Analytics Engineer\sep%
   Airbyte\sep%
   Airflow\sep%
   Aurora\sep%
   AWS\sep%
+  BigQuery\sep%
+  Datadog\sep%
   dbt\sep%
   Docker\sep%
   EKS\sep%
   GitHub Actions\sep%
+  Grafana\sep%
   Helm\sep%
+  Kafka\sep%
   Kubernetes\sep%
   MySQL\sep%
   OpenTofu\sep%
   PostgreSQL\sep%
   Python\sep%
   Snowflake\sep%
+  Snowpipe\sep%
   SQL\sep%
   Terraform%
 }
