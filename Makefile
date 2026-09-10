@@ -1,5 +1,7 @@
 PDF := build/Tom-Dobson-CV.pdf
 PRETTIER := npx --yes prettier@latest
+# -l reads .latexindent.yaml, and -m is what applies its wrapping rules. Neither is on by default.
+LATEXINDENT := latexindent -l -m -s -c build/
 TAG ?= v$(shell date +%Y.%m.%d)
 
 .PHONY: pdf check lint format preview release clean
@@ -13,9 +15,11 @@ check: pdf
 lint:
 	$(PRETTIER) --check .
 	shellcheck scripts/*.sh
+	@$(LATEXINDENT) -k *.tex *.sty || { echo 'LaTeX is not formatted, run make format' >&2; exit 1; }
 
 format:
 	$(PRETTIER) --write .
+	$(LATEXINDENT) -wd *.tex *.sty
 
 preview: pdf
 	pdftocairo -svg -f 1 -l 1 $(PDF) .github/preview-1.svg

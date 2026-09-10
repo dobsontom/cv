@@ -52,7 +52,12 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Run Prettier and ShellCheck
+      - name: Install latexindent
+        run: |
+          curl -fsSL -o latexindent \
+            https://github.com/cmhughes/latexindent.pl/releases/latest/download/latexindent-linux
+          sudo install -m 755 latexindent /usr/local/bin/latexindent
+      - name: Run Prettier, ShellCheck, and latexindent
         run: make lint
 
   release:

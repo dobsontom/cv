@@ -18,7 +18,7 @@ Tom Dobson's CV, written in LaTeX and built by GitHub Actions
 
 ## Building
 
-Needs TeX Live 2023, `latexmk`, and `poppler-utils`. On Ubuntu 24.04:
+Needs TeX Live 2023, `latexmk`, `poppler-utils`, and `latexindent`. On Ubuntu 24.04:
 
 ```sh
 sudo apt install texlive-latex-base texlive-latex-extra texlive-fonts-extra latexmk poppler-utils
@@ -27,7 +27,7 @@ sudo apt install texlive-latex-base texlive-latex-extra texlive-fonts-extra late
 ```sh
 make          # compile to build/Tom-Dobson-CV.pdf
 make check    # compile, then check page count, metadata, text extraction, and overfull lines
-make lint     # Prettier and ShellCheck
+make lint     # Prettier, ShellCheck, and latexindent in check mode
 make format   # fix what lint reports
 ```
 
