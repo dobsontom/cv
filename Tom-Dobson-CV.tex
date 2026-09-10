@@ -35,26 +35,26 @@ senior data engineering role where the infrastructure is part of the job.
         workload
   \item Migrated ingestion off Fivetran, Stitch, and Meltano onto self-hosted Airbyte on EKS,
         cutting ETL licence spend \cvmetric{94\%}, around \$64k per year
+  \item Profiled the production MySQL workload and removed \cvmetric{18\%} of its query volume
+        across a series of optimisations, including eliminating N+1 lookups via caching and
+        indexing a join that scanned around 40,000 rows a second to return 1,500
+  \item Mapped the whole data platform's architecture as code and keep it current, around
+        \cvmetric{90} components from source to destination, which the Technology Director called
+        the standard every team should follow
   \item Replaced static Aurora MySQL and Postgres credentials that anyone with Parameter Store
         access could read with per-person AWS IAM authentication, 15-minute tokens, and role-scoped
         grants, so every production query traces to an engineer
   \item Designed and built Snowflake governance as code in Terraform, with access managed from
         Google Groups through to Snowflake roles and all \cvmetric{15} service accounts moved from
         passwords to key-pair authentication
-  \item Profiled the production MySQL workload and removed \cvmetric{18\%} of its query volume
-        across a series of optimisations, including eliminating N+1 lookups via caching and
-        indexing a join that scanned around 40,000 rows a second to return 1,500
-  \item Built \cvmetric{seven} new Airflow pipelines, landing survey and support-ticket sources in
-        Snowflake and pushing customer segments and orders back into CX and marketing tools
-  \item Mapped the whole data platform's architecture as code and keep it current, around
-        \cvmetric{90} components from source to destination, which the Technology Director called
-        the standard every team should follow
   \item Audited every event path from the core application into Snowflake ahead of a platform
         migration, found the one dependency with no replacement, and wrote the reference backend
         engineers used to design the Kafka topic that replaces it
   \item Secured AI-agent access to dbt and Snowflake through an MCP server on a dedicated identity
         that can build in each developer's own database but never read unmasked PII, write to
         production, or escalate its own privileges
+  \item Built \cvmetric{seven} new Airflow pipelines, landing survey and support-ticket sources in
+        Snowflake and pushing customer segments and orders back into CX and marketing tools
   \item Created and chair a biweekly data infrastructure meeting, running since March 2025, for the
         whole data team including its head, where the team agrees platform changes, audits
         Snowflake, ingestion, and dbt spend, and prioritises the work that follows
@@ -66,26 +66,26 @@ senior data engineering role where the infrastructure is part of the job.
         dbt's recommended conventions, moving every model into staging, intermediate, and marts
         layers, standardising naming, linting, and grants, and carrying the breaking changes
         through eight repos belonging to other teams
-  \item Cut dbt CI time \cvmetric{74\%}, from 14 minutes to around 3, by deferring unchanged models
-        to their production tables rather than rebuilding them and capping how far downstream each
-        change is tested
-  \item Rebuilt deployment and test workflows onto one shared definition of runner, authentication,
-        and dbt setup, cutting their YAML \cvmetric{48\%} whilst their number grew, and
-        parallelised linting, scoring, and compilation
-  \item Brought every model into YAML metadata, up from 21\%, and took documented columns from
-        under 1,000 to over \cvmetric{12,000}, with dbt-score failing CI on any touched resource
-        that is not fully documented and owned
+  \item Sole maintainer of the Airflow platform on EKS: migrated \cvmetric{12} DAGs off v1, took it
+        through every upgrade to v3.3, and cut image builds from 7 minutes to under 30 seconds by
+        no longer compiling the image from source on every run
   \item Removed over \cvmetric{150,000} model builds a month, deprecating 400 dbt models on
         measured build cost and query usage and stopping models rebuilding faster than their data
         changes
+  \item Cut dbt CI time \cvmetric{74\%}, from 14 minutes to around 3, by deferring unchanged models
+        to their production tables rather than rebuilding them and capping how far downstream each
+        change is tested
+  \item Brought every model into YAML metadata, up from 21\%, and took documented columns from
+        under 1,000 to over \cvmetric{12,000}, with dbt-score failing CI on any touched resource
+        that is not fully documented and owned
   \item Rewrote and incrementalised the most expensive dbt models, cutting the worst from up to 28
         minutes to under \cvmetric{3} by inverting logic that had built every pet and product
         combination, validated row for row against the original
   \item Rebuilt dbt alerting on Elementary, tuned so only the \cvmetric{7.5\%} of detections that
         need action reach an engineer, plus freshness checks that catch silent ingestion failures
-  \item Sole maintainer of the Airflow platform on EKS: migrated \cvmetric{12} DAGs off v1, took it
-        through every upgrade to v3.3, and cut image builds from 7 minutes to under 30 seconds by
-        no longer compiling the image from source on every run
+  \item Rebuilt deployment and test workflows onto one shared definition of runner, authentication,
+        and dbt setup, cutting their YAML \cvmetric{48\%} whilst their number grew, and
+        parallelised linting, scoring, and compilation
 \end{itemize}
 
 \cvrole{BI Consultant, contract via The Information Lab}{Viasat}{Jan 2024 -- Oct 2024}
@@ -116,8 +116,8 @@ senior data engineering role where the infrastructure is part of the job.
   and Aurora, S3, Identity Center), Docker, GitHub Actions}
 \cvskillline{Application databases}{MySQL and Aurora, PostgreSQL, \texttt{performance\_schema},
   Percona Toolkit}
-\cvskillline{Observability}{Datadog APM, Grafana, Elementary}
 \cvskillline{Languages}{SQL, Python (SQLAlchemy, Alembic, Flask, pandas)}
+\cvskillline{Observability}{Datadog APM, Grafana, Elementary}
 \cvskillline{Prior}{Tableau, Alteryx, Power BI, GCP (BigQuery), Redshift, Oracle, R}
 
 \cvsection[nodivider]{Education}
