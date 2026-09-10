@@ -26,7 +26,7 @@ sudo apt install latexmk poppler-utils texlive-fonts-extra texlive-latex-base te
 
 ```sh
 make          # compile to build/Tom-Dobson-CV.pdf
-make check    # compile, then check page count, metadata, text extraction, and overfull lines
+make check    # compile, then check what looks fine actually is
 make lint     # Prettier, ShellCheck, and latexindent in check mode
 make format   # fix what lint reports
 ```
