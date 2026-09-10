@@ -10,7 +10,7 @@ pdf:
 	latexmk
 
 check: pdf
-	scripts/check-pdf.sh $(PDF)
+	scripts/check-pdf.sh $(PDF) $(PDF:.pdf=.log)
 
 lint:
 	$(PRETTIER) --check .

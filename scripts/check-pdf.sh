@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-pdf=${1:?usage: $0 <pdf>}
-log=${pdf%.pdf}.log
+usage="usage: $0 <pdf> <log>"
+pdf=${1:?$usage}
+log=${2:?$usage}
+# grep exits 2 on a missing file, which the check below cannot tell from a clean build.
+[[ -f $log ]] || { echo "no build log at $log" >&2; exit 1; }
 # make preview renders this many SVGs and the README embeds them by name, so a page appearing or
 # vanishing would break the README silently.
 want_pages=2
