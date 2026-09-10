@@ -3,8 +3,8 @@ defaultIndent: "  "
 modifyLineBreaks:
   textWrapOptions:
     columns: 100
-    when: after
     removeBlockLineBreaks: 1
+    when: after
     blocksFollow:
       other: \\\]|\\item(?:\h|\[)
     blocksBeginWith:
