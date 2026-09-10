@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
-# Usage: scripts/check-pdf.sh build/Tom-Dobson-CV.pdf
 set -euo pipefail
 
 pdf=${1:?usage: $0 <pdf>}
 log=${pdf%.pdf}.log
-# make preview renders exactly this many SVGs and the README embeds them by name, so a page
-# appearing or vanishing has to fail here rather than silently break the README.
+# make preview renders this many SVGs and the README embeds them by name, so a page appearing or
+# vanishing would break the README silently.
 want_pages=2
 status=0
 
@@ -34,7 +33,7 @@ else
   status=1
 fi
 
-# An overfull box is a visible defect on a CV, so it fails the check.
+# A warning to TeX, but visible on the page.
 if grep -q 'Overfull \\hbox' "$log"; then
   echo "FAIL: overfull boxes"
   grep 'Overfull \\hbox' "$log" | head

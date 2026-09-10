@@ -13,9 +13,8 @@
 % pdftocairo copies only the ink, so without this the SVG preview is transparent.
 \pagecolor{white}
 
-% The class already applies \RaggedRight, but 2em of slack is too little to set this measure without
-% hyphens, so Terraform was splitting across lines. Banning them needs the wider slack, or short
-% lines become underfull boxes and fail the build.
+% ragged2e's \RaggedRight allows 2em of slack, too little to set this measure without hyphens.
+% Banning them needs the wider slack, or short lines become underfull boxes and fail the build.
 \setlength{\RaggedRightRightskip}{0pt plus 5em}
 \linespread{1.05}
 \hyphenpenalty=10000
@@ -87,9 +86,8 @@
 
 % A macro rather than a length, so it tracks the \baselineskip in force where the rule is drawn.
 \newcommand{\cvdividersep}{0.8\baselineskip}
-% Drawn only between roles, never above the first in a section or below the last, which the
-% \if@cvfirstinsection branch in \cvrole gets for free. \nointerlineskip drops the baselineskip glue
-% the rule would otherwise sit on, so \cvdividersep alone sets the gap and centres it.
+% \nointerlineskip drops the baselineskip glue the rule would otherwise sit on, so \cvdividersep
+% alone sets the gap and centres it.
 \newcommand{\cvdivider}{%
   \addvspace{\cvdividersep}%
   \nointerlineskip

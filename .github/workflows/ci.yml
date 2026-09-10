@@ -28,6 +28,7 @@ jobs:
       - name: Install TeX Live
         uses: zauguin/install-texlive@6671d0c62046c7e349fe154d5208fe746b07e037 # v4.4.0
         with:
+          # The release Ubuntu 24.04 packages, so CI and a local apt install agree.
           texlive_version: 2023
           repository: https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2023/tlnet-final
           package_file: .github/texlive-packages.txt
@@ -78,7 +79,7 @@ jobs:
           name: ${{ env.PDF_NAME }}
       - name: Publish the release
         run: |
-          # GitHub prints the tag beside the title, so the title carries the date without repeating it.
+          # GitHub prints the tag beside the title, so the title carries the date but not the tag.
           title=${GITHUB_REF_NAME#v}
           gh release create "$GITHUB_REF_NAME" "$PDF_NAME.pdf" \
             --title "${title//./-}" --verify-tag --generate-notes
