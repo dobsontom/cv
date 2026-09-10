@@ -30,16 +30,16 @@ else
 fi
 
 if grep -qi 'tom dobson' <<<"$text"; then
-  echo "ok: text extracts"
+  echo "ok: name found in extracted text"
 else
   echo "FAIL: name not found in extracted text"
   status=1
 fi
 
 # A warning to TeX, but visible on the page.
-if grep -q 'Overfull \\hbox' "$log"; then
+if overfull=$(grep -m 10 'Overfull \\hbox' "$log"); then
   echo "FAIL: overfull boxes"
-  grep 'Overfull \\hbox' "$log" | head
+  echo "$overfull"
   status=1
 else
   echo "ok: no overfull boxes"
