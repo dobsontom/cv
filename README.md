@@ -21,7 +21,7 @@ Tom Dobson's CV, written in LaTeX and built by GitHub Actions
 Needs TeX Live 2023, `latexmk`, `poppler-utils`, and `latexindent`. On Ubuntu 24.04:
 
 ```sh
-sudo apt install texlive-latex-base texlive-latex-extra texlive-fonts-extra latexmk poppler-utils
+sudo apt install latexmk poppler-utils texlive-fonts-extra texlive-latex-base texlive-latex-extra
 ```
 
 ```sh
