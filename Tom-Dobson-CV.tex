@@ -33,8 +33,8 @@ senior data engineering role where the infrastructure is part of the job.
   \item Cut Snowflake spend \cvmetric{46\%} to its lowest month on record, saving around \$100k per
         year, by removing unused and over-scheduled compute and sizing each warehouse on measured
         workload
-  \item Migrated every ingestion source off paid platforms to self-hosted Airbyte on EKS, cutting
-        ETL licence spend \cvmetric{94\%}, around \$64k per year
+  \item Migrated ingestion off Fivetran, Stitch, and Meltano onto self-hosted Airbyte on EKS,
+        cutting ETL licence spend \cvmetric{94\%}, around \$64k per year
   \item Replaced static Aurora MySQL and Postgres credentials that anyone with Parameter Store
         access could read with per-person AWS IAM authentication, 15-minute tokens, and role-scoped
         grants, so every production query traces to an engineer
