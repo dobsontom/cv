@@ -18,7 +18,7 @@ Tom Dobson's CV, written in LaTeX and built by GitHub Actions
 
 ## Building
 
-Needs TeX Live 2023, `latexmk`, `poppler-utils`, and `latexindent`. On Ubuntu 24.04:
+Needs TeX Live, `latexmk`, `poppler-utils`, and `latexindent`. On Debian and friends:
 
 ```sh
 sudo apt install latexmk poppler-utils texlive-fonts-extra texlive-latex-base texlive-latex-extra
@@ -32,7 +32,8 @@ make format   # fix what lint reports
 ```
 
 The [AltaCV](https://github.com/liantze/AltaCV) class under `vendor/altacv/` is used as published.
-Every change to the look lives in `cvstyle.sty`, and the words in `Tom-Dobson-CV.tex`.
+Changes to the AltaCV defaults live in `cvstyle.sty`, and the CV itself lives in
+`Tom-Dobson-CV.tex`.
 
 ## Releasing
 
