@@ -33,7 +33,7 @@ engineering role where the infrastructure is part of the job.
   \item Cut Snowflake spend \cvmetric{46\%} to its lowest month on record, saving around \$100k a
         year, by removing unused and over-scheduled compute and sizing each warehouse on measured
         workload
-  \item Migrated ingestion off Fivetran, Stitch, and Meltano onto self-hosted Airbyte on EKS,
+  \item Migrated ingestion from Fivetran, Stitch, and Meltano to self-hosted Airbyte on EKS,
         cutting ETL licence spend \cvmetric{94\%}, around \$64k a year
   \item Profiled the production MySQL workload and removed \cvmetric{18\%} of its query volume
         across a series of optimisations, including eliminating N+1 lookups via caching and
@@ -49,11 +49,11 @@ engineering role where the infrastructure is part of the job.
         passwords to key-pair authentication
   \item Audited every event path from the core application into Snowflake ahead of a platform
         migration, found the one dependency with no replacement, and wrote the reference backend
-        engineers used to design the Kafka topic that replaces it
+        engineers used to design the Kafka topic that replaced it
   \item Secured AI-agent access to dbt and Snowflake through an MCP server on a dedicated identity
         that can build in each developer's own database but never read unmasked PII, write to
         production, or escalate its own privileges
-  \item Built \cvmetric{seven} new Airflow pipelines, landing survey and support-ticket sources in
+  \item Built \cvmetric{six} new Airflow pipelines, landing survey and support-ticket sources in
         Snowflake and pushing customer segments and orders back into CX and marketing tools
   \item Created and chair a biweekly data infrastructure meeting, running since March 2025, for the
         whole data team including its head, where the team agrees platform changes, audits
@@ -66,25 +66,25 @@ engineering role where the infrastructure is part of the job.
         dbt's recommended conventions, moving every model into staging, intermediate, and marts
         layers, standardising naming, linting, and grants, and carrying the breaking changes
         through eight repos belonging to other teams
-  \item Sole maintainer of the Airflow platform on EKS: migrated \cvmetric{12} DAGs off v1, took it
-        through every upgrade to v3.3, and cut image builds from 7 minutes to under 30 seconds by
-        no longer compiling the image from source on every run
+  \item Sole maintainer of Airflow on EKS: migrated \cvmetric{12} DAGs off v1, took it through
+        every upgrade to v3.3, and cut image builds from 7 minutes to under 30 seconds by no longer
+        compiling the image from source on every run
   \item Removed over \cvmetric{150,000} model builds a month, deprecating 400 dbt models on
-        measured build cost and query usage, and stopping models rebuilding faster than their data
-        changes
+        measured build cost and downstream usage, and preventing rebuilds before upstream data is
+        refreshed
   \item Cut dbt CI time \cvmetric{74\%}, from 14 minutes to around 3, by deferring unchanged models
         to their production tables rather than rebuilding them, and capping how far downstream each
         change is tested
   \item Brought every model into YAML metadata, up from 21\%, and took documented columns from
-        under 1,000 to over \cvmetric{12,000}, with dbt-score failing CI on any touched resource
-        that is not fully documented and owned
-  \item Rewrote and incrementalised the most expensive dbt models, cutting the worst from up to 28
-        minutes to under \cvmetric{3} by inverting logic that had built every pet and product
+        under 1,000 to over \cvmetric{12,000}, enforced by dbt-score, which fails CI on any touched
+        resource not fully documented and owned
+  \item Refactored and incrementalised the costliest dbt models, cutting the worst from up to 28
+        minutes to under \cvmetric{3} by inverting logic that built every pet and product
         combination, validated row for row against the original
   \item Rebuilt dbt alerting on Elementary, tuned so only the \cvmetric{7.5\%} of detections that
         need action reach an engineer, plus freshness checks that catch silent ingestion failures
-  \item Rebuilt deployment and test workflows onto one shared definition of runner, authentication,
-        and dbt setup, cutting their YAML \cvmetric{48\%} whilst their number grew, and
+  \item Rebuilt deployment and test workflows onto a shared definition of runner, authentication,
+        and dbt setup, cutting their YAML by \cvmetric{48\%} whilst their number grew, and
         parallelised linting, scoring, and compilation
 \end{itemize}
 
@@ -100,7 +100,7 @@ engineering role where the infrastructure is part of the job.
 \cvrole{Analytics Consultant}{The Information Lab}{Apr 2022 -- Aug 2024}
 \begin{itemize}
   \item Automated IAG Cargo's warehouse task distribution with Oracle stored procedures, saving
-        around \cvmetric{1 FTE}, and re-engineered the schema to take reporting discrepancies from
+        around \cvmetric{1 FTE}, and redesigned the schema to take reporting discrepancies from
         15\% to under 1\%
   \item Built pipelines for the BBC consolidating over 6m rows of survey data behind a self-service
         Tableau front end
