@@ -5,6 +5,9 @@ modifyLineBreaks:
     columns: 100
     removeBlockLineBreaks: 1
     when: after
+    comments:
+      wrap: 1
+      inheritLeadingSpace: 1
     blocksFollow:
       other: \\\]|\\item(?:\h|\[)
     blocksBeginWith:
