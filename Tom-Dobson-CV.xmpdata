@@ -1,9 +1,9 @@
 \Title{Tom Dobson: Curriculum Vitae}
 \Author{Tom Dobson}
 \Language{en-GB}
-\Subject{Tom Dobson's curriculum vitae. Data engineer in London, owning a Snowflake, dbt, Airflow,
-  and Airbyte platform end to end, with the Terraform and Kubernetes beneath it, and working
-  inside the Aurora MySQL and Postgres databases behind the application.}
+\Subject{Tom Dobson's curriculum vitae. Data engineer in London, owning Tails.com's data platform
+  end to end, from the MySQL and Postgres databases behind the application, through the Snowflake,
+  dbt, and Airflow estate, to the Terraform and Kubernetes underneath.}
 \Copyright{\copyright\ Tom Dobson. All rights reserved.}
 \URLlink{https://github.com/dobsontom/cv/releases/latest/download/Tom-Dobson-CV.pdf}
 \Keywords{%
