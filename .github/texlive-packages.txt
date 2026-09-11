@@ -9,4 +9,4 @@ pdfx xmpincl everyshi accsupp
 fontawesome5
 
 # cvstyle.sty
-sourcesanspro mweights xkeyval ly1 fontname microtype needspace
+sourcesanspro sourcecodepro mweights xkeyval ly1 fontname microtype needspace

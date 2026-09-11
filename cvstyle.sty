@@ -2,7 +2,10 @@
 \ProvidesPackage{cvstyle}[2026/09/02 v1.0 Layout, colours, and content macros over AltaCV]
 
 \RequirePackage[british]{babel}
-\RequirePackage[default]{sourcesanspro}
+% Every number here sits in prose, so proportional figures. The package defaults to tabular.
+\RequirePackage[default,proportional]{sourcesanspro}
+% Source Sans's own companion mono, so the two share an x-height.
+\RequirePackage{sourcecodepro}
 \RequirePackage[tracking=true]{microtype}
 \RequirePackage{needspace}
 \SetTracking{encoding=*, shape=n}{40}
@@ -17,6 +20,8 @@
 % Banning them needs the wider slack, or short lines become underfull boxes and fail the build.
 \setlength{\RaggedRightRightskip}{0pt plus 5em}
 \linespread{1.05}
+% Ragged text sets spaces at natural width, so TeX's wider space after a full stop would show.
+\frenchspacing
 \hyphenpenalty=10000
 \exhyphenpenalty=10000
 \widowpenalty=10000
@@ -79,10 +84,18 @@
   }%
   \let\@evenfoot\@oddfoot
 }
-% Page one names him in the header already, and the class's hook has to have run before this.
+% Page one already carries the name in the header, and the class's hook has to have run before this.
 \AtBeginDocument{\pagestyle{cvfooter}\thispagestyle{empty}}
 
 \NewDocumentCommand{\cvmetric}{m}{{\color{emphasis}\textbf{#1}}}
+
+% Inline code as GitHub, Slack, and Confluence draw it: mono at around 80% in a rounded light fill.
+% Fixed text height and depth keep the chip from opening up the line it sits on.
+\colorlet{codebg}{LightGrey!10}
+\NewDocumentCommand{\cvcode}{m}{%
+  \tikz[baseline]\node[anchor=base, fill=codebg, rounded corners=2pt, inner xsep=0.25em,
+    inner ysep=0.1em, text height=1.55ex, text depth=0.3ex]{\footnotesize\texttt{#1}};%
+}
 
 % A macro rather than a length, so it tracks the \baselineskip in force where the rule is drawn.
 \newcommand{\cvdividersep}{0.8\baselineskip}

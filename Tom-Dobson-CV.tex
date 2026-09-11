@@ -22,7 +22,7 @@
 Data engineer owning Tails.com's data platform end to end, from the MySQL and Postgres databases
 behind the application, through the Snowflake, dbt, and Airflow estate, to the Terraform and
 Kubernetes underneath. Cut Snowflake spend 46\% and ETL licence spend 94\%, over \$160k a year,
-whilst the estate grew to around 290 billion rows. Inside the application, profiled the production
+whilst the estate grew to around 290~billion rows. Inside the application, profiled the production
 database and cut its query load and CPU by around a third across 2026. Looking for a senior data
 engineering role where the infrastructure is part of the job.
 
@@ -37,15 +37,15 @@ engineering role where the infrastructure is part of the job.
         cutting ETL licence spend \cvmetric{94\%}, around \$64k a year
   \item Profiled the production MySQL workload and removed \cvmetric{18\%} of its query volume
         across a series of optimisations, including eliminating N+1 lookups via caching and
-        indexing a join that scanned around 40,000 rows a second to return 1,500
+        indexing a join that scanned around 40,000~rows a second to return 1,500
   \item Mapped the whole data platform's architecture as code and keep it current, around
-        \cvmetric{90} components from source to destination, which the Technology Director called
+        \cvmetric{90}~components from source to destination, which the Technology Director called
         the standard every team should follow
   \item Moved Aurora MySQL and Postgres access from shared static credentials, readable by any
         Parameter Store user, to per-person AWS IAM authentication with 15-minute tokens and
         role-scoped grants, so every production query traces to an engineer
   \item Designed and built Snowflake governance as code in Terraform, with access managed from
-        Google Groups through to Snowflake roles and all \cvmetric{15} service accounts moved from
+        Google Groups through to Snowflake roles and all \cvmetric{15}~service accounts moved from
         passwords to key-pair authentication
   \item Audited every event path from the core application into Snowflake ahead of a platform
         migration, found the one dependency with no replacement, and wrote the reference backend
@@ -66,19 +66,19 @@ engineering role where the infrastructure is part of the job.
         dbt's recommended conventions, moving every model into staging, intermediate, and marts
         layers, standardising naming, linting, and grants, and carrying the breaking changes
         through eight repos belonging to other teams
-  \item Sole maintainer of Airflow on EKS: migrated \cvmetric{12} DAGs off v1, took it through
-        every upgrade to v3.3, and cut image builds from 7 minutes to under 30 seconds by no longer
+  \item Sole maintainer of Airflow on EKS: migrated \cvmetric{12}~DAGs off v1, took it through
+        every upgrade to v3.3, and cut image builds from 7~minutes to under 30~seconds by no longer
         compiling the image from source on every run
-  \item Removed over \cvmetric{150,000} model builds a month, deprecating 400 dbt models on
+  \item Removed over \cvmetric{150,000}~model builds a month, deprecating 400~dbt models on
         measured build cost and downstream usage, and preventing rebuilds before upstream data is
         refreshed
-  \item Cut dbt CI time \cvmetric{74\%}, from 14 minutes to around 3, by deferring unchanged models
+  \item Cut dbt CI time \cvmetric{74\%}, from 14~minutes to around~3, by deferring unchanged models
         to their production tables rather than rebuilding them, and capping how far downstream each
         change is tested
   \item Brought every model into YAML metadata, up from 21\%, and took documented columns from
         under 1,000 to over \cvmetric{12,000}, enforced by dbt-score, which fails CI on any touched
         resource not fully documented and owned
-  \item Refactored and incrementalised the costliest dbt models, cutting the worst from up to 28
+  \item Refactored and incrementalised the costliest dbt models, cutting the worst from up to~28
         minutes to under \cvmetric{3} by inverting logic that built every pet and product
         combination, validated row for row against the original
   \item Rebuilt dbt alerting on Elementary, tuned so only the \cvmetric{7.5\%} of detections that
@@ -94,7 +94,7 @@ engineering role where the infrastructure is part of the job.
         of annualised revenue at risk, and led the ETL migration from Alteryx to GCP, saving around
         £100k a year in licences
   \item Built a basket-abandonment pipeline on BigQuery feeding Adobe Campaign, and a performance
-        data mart consolidating 15 tables behind Tableau alerting
+        data mart consolidating 15~tables behind Tableau alerting
 \end{itemize}
 
 \cvrole{Analytics Consultant}{The Information Lab}{Apr 2022 -- Aug 2024}
@@ -102,7 +102,7 @@ engineering role where the infrastructure is part of the job.
   \item Automated IAG Cargo's warehouse task distribution with Oracle stored procedures, saving
         around \cvmetric{1 FTE}, and redesigned the schema to take reporting discrepancies from
         15\% to under 1\%
-  \item Built pipelines for the BBC consolidating over 6m rows of survey data behind a self-service
+  \item Built pipelines for the BBC consolidating over 6m~rows of survey data behind a self-service
         Tableau front end
   \item Automated the detection and publicising of Tableau User Group events with Python,
         Snowflake, and GitHub Actions, lifting engagement around \cvmetric{80\%}
@@ -114,7 +114,7 @@ engineering role where the infrastructure is part of the job.
   consumer}
 \cvskillline{Infrastructure}{Kubernetes (EKS, Helm, GitOps), OpenTofu and Terraform, AWS (IAM, RDS
   and Aurora, S3, Identity Center), Docker, GitHub Actions}
-\cvskillline{Application databases}{MySQL and Aurora, PostgreSQL, \texttt{performance\_schema},
+\cvskillline{Application databases}{MySQL and Aurora, PostgreSQL, \cvcode{performance\_schema},
   Percona Toolkit}
 \cvskillline{Languages}{SQL, Python (SQLAlchemy, Alembic, Flask, pandas)}
 \cvskillline{Observability}{Datadog APM, Grafana, Elementary}
