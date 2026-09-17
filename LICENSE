@@ -1,6 +1,11 @@
 MIT License
 
-Copyright (c) 2026 Tom Dobson
+Copyright (c) Tom Dobson
+
+This licence covers the tooling only: cvstyle.sty, the Makefile, scripts/, and
+the CI workflow under .github/. The CV itself (Tom-Dobson-CV.tex, its .xmpdata,
+the built PDF, and the preview images) is not covered, and all rights to it are
+reserved. The class in vendor/altacv/ carries its own LPPL licence.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -52,5 +52,5 @@ attached. The download link above always resolves to the newest one.
 
 ## Licence
 
-The tooling is MIT. The class in `vendor/altacv/` is LPPL and unmodified. The CV itself is mine, all
-rights reserved.
+The tooling is MIT; [`LICENSE`](LICENSE) says what that covers. The class in `vendor/altacv/` is
+LPPL and unmodified. The CV itself is mine, all rights reserved.
